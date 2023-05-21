@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "OTTCreator.Configurator (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "OTTCreator.Configurator (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
