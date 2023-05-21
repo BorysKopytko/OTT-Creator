@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using OTTCreator.Client.Data;
 
 namespace OTTCreator.Client
 {
@@ -15,7 +14,6 @@ namespace OTTCreator.Client
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-            builder.Services.AddSingleton<ClientDatabase>();
             builder.Services.AddSingleton<MainPage>();
 
 #if DEBUG
