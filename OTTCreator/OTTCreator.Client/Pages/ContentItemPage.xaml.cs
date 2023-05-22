@@ -9,12 +9,15 @@
 
         protected override async void OnAppearing()
         {
-            base.OnAppearing();
-            var currentName = await SecureStorage.Default.GetAsync("CurrentName");
-            Title = currentName;
             var currentStream = await SecureStorage.Default.GetAsync("CurrentStream");
-            if (ContentItemMediaElement.Source == null || currentStream != ContentItemMediaElement.Source.ToString())
+            if (currentStream != ContentItemMediaElement.Source.ToString().Replace("Uri: ", ""))
+            {
                 ContentItemMediaElement.Source = currentStream;
+                var currentName = await SecureStorage.Default.GetAsync("CurrentName");
+                Title = currentName;
+            }
+
+            base.OnAppearing();
         }
     }
 }

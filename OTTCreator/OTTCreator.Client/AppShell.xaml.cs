@@ -27,7 +27,7 @@ namespace OTTCreator.Client
                 {
                     var UICategory = new ShellContent();
                     UICategory.Title = category;
-                    UICategory.ContentTemplate = new DataTemplate(() => new CategoryPage());
+                    UICategory.ContentTemplate = new DataTemplate(typeof(CategoryPage));
                     UIType.Items.Add(UICategory);
                 }
                 Shell.Items.Add(UIType);
