@@ -7,17 +7,18 @@ public partial class CategoryPage : ContentPage
     ClientDatabase clientDatabase;
 
     public CategoryPage()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         clientDatabase = new ClientDatabase();
-        var task = Task.Run(async () => { await GenerateContentItemList(); });
+        var task = Task.Run(GenerateContentItemList);
         task.Wait();
+        Title = Shell.Current.CurrentItem.Title;
     }
 
     private async Task GenerateContentItemList()
-	{
+    {
         var contentItems = await clientDatabase.GetItemsAsync();
-        foreach (var contentItem in contentItems.Where(x=>x.Type==Shell.Current.CurrentItem.Title && x.Category==Shell.Current.CurrentItem.CurrentItem.Title).Distinct().ToList())
+        foreach (var contentItem in contentItems.Where(x => x.Type == Shell.Current.CurrentItem.Title && x.Category == Shell.Current.CurrentItem.CurrentItem.Title).Distinct().ToList())
         {
             var imageButton = new ImageButton();
             imageButton.Source = contentItem.Logotype;
@@ -32,8 +33,9 @@ public partial class CategoryPage : ContentPage
 
     private async void ImageButton_Clicked(object sender, EventArgs e)
     {
-        var imageButton = (ImageButton)sender;
-        await SecureStorage.Default.SetAsync("CurrentStream", ((Tuple<string, Uri>)imageButton.CommandParameter).Item2.ToString());
+        var imageButtonCommandParameters = (Tuple<string, Uri>)((ImageButton)sender).CommandParameter;
+        await SecureStorage.Default.SetAsync("CurrentName", imageButtonCommandParameters.Item1.ToString());
+        await SecureStorage.Default.SetAsync("CurrentStream", imageButtonCommandParameters.Item2.ToString());
         await Shell.Current.GoToAsync("//ContentItemPage");
     }
 }

@@ -1,6 +1,4 @@
-﻿using OTTCreator.Client.Data;
-using OTTCreator.Client.Models;
-using OTTCreator.Client.Pages;
+﻿using OTTCreator.Client.Pages;
 
 namespace OTTCreator.Client
 {
@@ -11,6 +9,7 @@ namespace OTTCreator.Client
             InitializeComponent();
 
             MainPage = new AppShell();
+
             Routing.RegisterRoute("ContentItemPage", typeof(ContentItemPage));
             Routing.RegisterRoute("CategoryPage", typeof(CategoryPage));
         }

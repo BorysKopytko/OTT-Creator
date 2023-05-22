@@ -6,10 +6,8 @@
     xmlns:local="clr-namespace:OTTCreator.Client"
     Shell.FlyoutBehavior="Flyout"
     x:Name="Shell">
-
     <ShellContent
-        Title="Home"
+        Title="Поточне відтворення"
         ContentTemplate="{DataTemplate local:ContentItemPage}"
-        Route="ContentItemPage" />
-
+        Route="ContentItemPage"/>
 </Shell>
