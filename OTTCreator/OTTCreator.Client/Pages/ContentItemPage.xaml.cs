@@ -1,10 +1,10 @@
 ﻿namespace OTTCreator.Client
 {
-    public partial class MainPage : ContentPage
+    public partial class ContentItemPage : ContentPage
     {
         int count = 0;
 
-        public MainPage()
+        public ContentItemPage()
         {
             InitializeComponent();
         }

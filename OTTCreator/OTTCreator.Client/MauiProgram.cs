@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using Microsoft.Extensions.Logging;
 using OTTCreator.Client.Pages;
 
 namespace OTTCreator.Client
@@ -10,12 +11,13 @@ namespace OTTCreator.Client
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkitMediaElement()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<ContentItemPage>();
             builder.Services.AddSingleton<CategoryPage>();
 
 #if DEBUG

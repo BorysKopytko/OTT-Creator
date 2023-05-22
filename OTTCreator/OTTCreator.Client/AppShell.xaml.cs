@@ -20,7 +20,7 @@ namespace OTTCreator.Client
 
         private async Task GenerateUI()
         {
-            await GetTestUI();
+            //await GetTestUI();
             var contentItems = await clientDatabase.GetItemsAsync();
             foreach (var type in contentItems.Select(x => x.Type).Distinct().ToList())
             {
