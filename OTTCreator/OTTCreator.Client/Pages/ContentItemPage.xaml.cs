@@ -1,24 +1,21 @@
-﻿namespace OTTCreator.Client
+﻿using CommunityToolkit.Maui.Views;
+
+namespace OTTCreator.Client
 {
     public partial class ContentItemPage : ContentPage
     {
-        int count = 0;
-
         public ContentItemPage()
         {
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        protected override async void OnAppearing()
         {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            base.OnAppearing();
+            var currentStream = await SecureStorage.Default.GetAsync("CurrentStream");
+            if (ContentItemMediaElement.Source == null || currentStream != ContentItemMediaElement.Source.ToString())
+                ContentItemMediaElement.Source = currentStream;
         }
+ 
     }
 }

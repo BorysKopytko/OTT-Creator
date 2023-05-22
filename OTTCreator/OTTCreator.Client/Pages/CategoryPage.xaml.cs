@@ -21,12 +21,19 @@ public partial class CategoryPage : ContentPage
         {
             var imageButton = new ImageButton();
             imageButton.Source = contentItem.Logotype;
-            imageButton.CommandParameter = contentItem.Name;
+            imageButton.CommandParameter = new Tuple<string, Uri>(contentItem.Name, contentItem.Stream);
             imageButton.MaximumHeightRequest = 150;
             imageButton.MaximumWidthRequest = 150;
             imageButton.BorderWidth = 5;
-            //imageButton.Clicked = ;
+            imageButton.Clicked += ImageButton_Clicked;
             ContentItemList.Add(imageButton);
         }
+    }
+
+    private async void ImageButton_Clicked(object sender, EventArgs e)
+    {
+        var imageButton = (ImageButton)sender;
+        await SecureStorage.Default.SetAsync("CurrentStream", ((Tuple<string, Uri>)imageButton.CommandParameter).Item2.ToString());
+        await Shell.Current.GoToAsync("//ContentItemPage");
     }
 }
