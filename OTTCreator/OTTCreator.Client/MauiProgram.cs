@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using OTTCreator.Client.Pages;
 
 namespace OTTCreator.Client
 {
@@ -15,6 +16,7 @@ namespace OTTCreator.Client
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
             builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<CategoryPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

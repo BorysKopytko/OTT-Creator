@@ -5,6 +5,8 @@
              Title="CategoryPage">
     <ScrollView>
         <FlexLayout x:Name="ContentItemList"
-                    Wrap="Wrap"/>
+                    Wrap="Wrap"
+                    AlignItems="Start"
+                    AlignContent="Start"/>
     </ScrollView>
 </ContentPage>

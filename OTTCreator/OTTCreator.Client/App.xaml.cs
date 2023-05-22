@@ -1,4 +1,7 @@
-﻿namespace OTTCreator.Client
+﻿using OTTCreator.Client.Data;
+using OTTCreator.Client.Models;
+
+namespace OTTCreator.Client
 {
     public partial class App : Application
     {
