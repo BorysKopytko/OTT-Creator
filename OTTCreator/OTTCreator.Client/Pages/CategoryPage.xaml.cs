@@ -21,8 +21,8 @@ public partial class CategoryPage : ContentPage
         foreach (var contentItem in contentItems.Where(x => x.Type == Shell.Current.CurrentItem.Title && x.Category == Shell.Current.CurrentItem.CurrentItem.Title).Distinct().ToList())
         {
             var imageButton = new ImageButton();
-            imageButton.Source = contentItem.Logotype;
-            imageButton.CommandParameter = new Tuple<string, Uri>(contentItem.Name, contentItem.Stream);
+            imageButton.Source = contentItem.Image;
+            imageButton.CommandParameter = contentItem.ID;
             imageButton.MaximumHeightRequest = 150;
             imageButton.MaximumWidthRequest = 150;
             imageButton.BorderWidth = 5;
@@ -33,9 +33,8 @@ public partial class CategoryPage : ContentPage
 
     private async void ImageButton_Clicked(object sender, EventArgs e)
     {
-        var imageButtonCommandParameters = (Tuple<string, Uri>)((ImageButton)sender).CommandParameter;
-        await SecureStorage.Default.SetAsync("CurrentName", imageButtonCommandParameters.Item1.ToString());
-        await SecureStorage.Default.SetAsync("CurrentStream", imageButtonCommandParameters.Item2.ToString());
+        var imageButtonCommandParameter = (int)((ImageButton)sender).CommandParameter;
+        await SecureStorage.Default.SetAsync("CurrentID", imageButtonCommandParameter.ToString());
         await Shell.Current.GoToAsync("//ContentItemPage");
     }
 }

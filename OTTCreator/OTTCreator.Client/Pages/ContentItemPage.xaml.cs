@@ -1,20 +1,27 @@
-﻿namespace OTTCreator.Client
+﻿using OTTCreator.Client.Data;
+
+namespace OTTCreator.Client
 {
     public partial class ContentItemPage : ContentPage
     {
+        ClientDatabase clientDatabase;
+
         public ContentItemPage()
         {
             InitializeComponent();
+
+            clientDatabase = new ClientDatabase();
         }
 
         protected override async void OnAppearing()
         {
-            var currentStream = await SecureStorage.Default.GetAsync("CurrentStream");
+            var currentID = await SecureStorage.Default.GetAsync("CurrentID");
+            var currentItem = await clientDatabase.GetItemAsync(Convert.ToInt32(currentID));
+            var currentStream = currentItem.Stream.ToString();
             if (currentStream != ContentItemMediaElement.Source.ToString().Replace("Uri: ", ""))
             {
                 ContentItemMediaElement.Source = currentStream;
-                var currentName = await SecureStorage.Default.GetAsync("CurrentName");
-                Title = currentName;
+                Title = currentItem.Name;
             }
 
             base.OnAppearing();
