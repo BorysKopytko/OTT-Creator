@@ -4,9 +4,13 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="OTTCreator.Client.ContentItemPage"
              >
-    <toolkit:MediaElement x:Name="ContentItemMediaElement"
+    <Grid>
+        <Image x:Name="Image" 
+               Source="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/EBU_Colorbars_HD.svg/1920px-EBU_Colorbars_HD.svg.png"></Image>
+        <toolkit:MediaElement x:Name="ContentItemMediaElement"
                       ShouldAutoPlay="True"
                       ShouldKeepScreenOn="True"
                       Source="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                      />
+                      ZIndex="1"/>
+    </Grid>
 </ContentPage>

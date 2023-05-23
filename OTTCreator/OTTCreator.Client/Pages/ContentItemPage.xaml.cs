@@ -21,9 +21,10 @@ namespace OTTCreator.Client
             if (currentStream != ContentItemMediaElement.Source.ToString().Replace("Uri: ", ""))
             {
                 ContentItemMediaElement.Source = currentStream;
+                Image.Source = currentItem.Image;
                 Title = currentItem.Name;
             }
-
+            
             base.OnAppearing();
         }
     }
