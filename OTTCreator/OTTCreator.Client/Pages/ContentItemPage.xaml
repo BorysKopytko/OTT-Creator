@@ -5,11 +5,43 @@
              x:Class="OTTCreator.Client.ContentItemPage"
              >
     <Grid>
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                  Tapped="Grid_Tapped"/>
+        </Grid.GestureRecognizers>
         <Image x:Name="AudioCoverImage" 
-               Source="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/EBU_Colorbars.svg/1280px-EBU_Colorbars.svg.png"/>
+               Source="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/EBU_Colorbars.svg/1280px-EBU_Colorbars.svg.png"
+               ZIndex="0"
+               />
         <toolkit:MediaElement x:Name="ContentItemMediaElement"
                       ShouldAutoPlay="True"
                       ShouldKeepScreenOn="True"
-                      Source="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"/>
+                      Source="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                      MediaOpened="ContentItemMediaElement_MediaOpened"
+                      Background="Transparent"
+                      ZIndex="1"
+                      />
+        <HorizontalStackLayout x:Name="CustomPlaybackControls" 
+                               HorizontalOptions="Center" 
+                               VerticalOptions="End" 
+                               Margin="10" 
+                               Background="Transparent"
+                               ZIndex="2">
+            <Button x:Name="VolumeDownButton"
+                    Text="Звук -" 
+                    Clicked="VolumeDownButton_Clicked" 
+                    IsEnabled="False"
+                    Margin="10" />
+            <Button x:Name="StopAndPlayButton" 
+                    Text="Відтворити / Зупинити" 
+                    Clicked="StopAndPlayButton_Clicked" 
+                    IsEnabled="False"
+                    Margin="10" />
+            <Button x:Name="VolumeUpButton" 
+                    Text="Звук +" 
+                    Clicked="VolumeUpButton_Clicked" 
+                    IsEnabled="False"
+                    Margin="10" />
+        </HorizontalStackLayout>
     </Grid>
 </ContentPage>

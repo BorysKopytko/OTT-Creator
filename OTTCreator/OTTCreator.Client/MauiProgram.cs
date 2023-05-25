@@ -23,7 +23,6 @@ namespace OTTCreator.Client
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-
             return builder.Build();
         }
     }

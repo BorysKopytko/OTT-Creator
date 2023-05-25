@@ -21,9 +21,10 @@ public partial class CategoryPage : ContentPage
         {
             var imageButton = new ImageButton();
             imageButton.Source = contentItem.Image;
+            imageButton.Aspect = Aspect.Fill;
             imageButton.CommandParameter = contentItem.ID;
-            imageButton.MaximumHeightRequest = 150;
-            imageButton.MaximumWidthRequest = 150;
+            imageButton.MaximumHeightRequest = 300;
+            imageButton.MaximumWidthRequest = 300;
             imageButton.BorderWidth = 5;
             imageButton.Clicked += ImageButton_Clicked;
             ContentItemList.Add(imageButton);

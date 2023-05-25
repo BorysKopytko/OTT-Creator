@@ -11,5 +11,5 @@
     public static string DatabasePath =>
         Path.Combine(FileSystem.AppDataDirectory, databaseFileName);
 
-    public const bool isTestDataNeeded = false;
+    public const bool isTestDataNeeded = true;
 }
