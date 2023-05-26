@@ -5,7 +5,7 @@ namespace OTTCreator.Client
 {
     public partial class AppShell : Shell
     {
-        ClientDatabase clientDatabase;
+        private ClientDatabase clientDatabase;
 
         public AppShell()
         {
@@ -15,6 +15,9 @@ namespace OTTCreator.Client
             var task = Task.Run(GenerateUI);
             task.Wait();
             clientDatabase = null;
+
+            Routing.RegisterRoute("ContentItemPage", typeof(ContentItemPage));
+            Routing.RegisterRoute("CategoryPage", typeof(CategoryPage));
         }
 
         private async Task GenerateUI()

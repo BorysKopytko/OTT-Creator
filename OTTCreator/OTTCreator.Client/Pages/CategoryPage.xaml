@@ -2,7 +2,31 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OTTCreator.Client.Pages.CategoryPage"
+             xmlns:controls="clr-namespace:OTTCreator.Client.Controls"
              >
+    <Shell.SearchHandler>
+        <controls:ContentItemSearchHandler Placeholder="Введіть назву"
+                                           ShowsResults="true"
+                                           QueryIcon="False"
+                                           >
+            <controls:ContentItemSearchHandler.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10"
+                          ColumnDefinitions="0.2*,0.8*">
+                        <Image Source="{Binding CroppedImage}"
+                               HeightRequest="50"
+                               WidthRequest="50"
+                               Margin="10"/>
+                        <Label Grid.Column="1"
+                               Text="{Binding Name}"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               Margin="10"/>
+                    </Grid>
+                </DataTemplate>
+            </controls:ContentItemSearchHandler.ItemTemplate>
+        </controls:ContentItemSearchHandler>
+    </Shell.SearchHandler>
     <ScrollView Padding="10">
         <FlexLayout x:Name="ContentItemList"
                     Wrap="Wrap"

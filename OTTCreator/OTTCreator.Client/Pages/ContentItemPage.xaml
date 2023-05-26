@@ -10,7 +10,7 @@
                                   Tapped="Grid_Tapped"/>
         </Grid.GestureRecognizers>
         <Image x:Name="AudioCoverImage" 
-               Source="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/EBU_Colorbars.svg/1280px-EBU_Colorbars.svg.png"
+               Source="https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg"
                ZIndex="0"
                />
         <toolkit:MediaElement x:Name="ContentItemMediaElement"

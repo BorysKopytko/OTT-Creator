@@ -5,12 +5,11 @@ namespace OTTCreator.Client
 {
     public partial class ContentItemPage : ContentPage
     {
-        ClientDatabase clientDatabase;
-        bool isCustomPlaybackControlsVisible;
-        bool isContentItemPlaying;
-        MediaSource currentStreamMediaSource;
-        bool hasContentItemVideo;
-        Uri audioCoverImageBackup;
+        private ClientDatabase clientDatabase;
+        private bool isCustomPlaybackControlsVisible;
+        private bool isContentItemPlaying;
+        private MediaSource currentStreamMediaSource;
+        private Uri audioCoverImageBackup;
 
         public ContentItemPage()
         {
@@ -46,7 +45,6 @@ namespace OTTCreator.Client
                 if (!currentItem.HasVideo)
                 {
                     ContentItemMediaElement.IsVisible = false;
-                    hasContentItemVideo = false;
                     AudioCoverImage.Source = currentItem.Image;
                     AudioCoverImage.IsVisible = true;
                     audioCoverImageBackup = currentItem.Image;
@@ -55,7 +53,6 @@ namespace OTTCreator.Client
                 {
                     AudioCoverImage.IsVisible = false;
                     ContentItemMediaElement.IsVisible = true;
-                    hasContentItemVideo = true;
                 }
 
                 Title = currentItem.Name;
@@ -69,6 +66,13 @@ namespace OTTCreator.Client
             base.OnDisappearing();
 
             AudioCoverImage.Source = null;
+        }
+
+        private async void ContentItemMediaElement_MediaOpened(object sender, EventArgs e)
+        {
+            isContentItemPlaying = true;
+            await CustomPlaybackControls.FadeTo(0, 2000);
+            isCustomPlaybackControlsVisible = false;
         }
 
         private async void Grid_Tapped(object sender, EventArgs args)
@@ -89,13 +93,6 @@ namespace OTTCreator.Client
                 await CustomPlaybackControls.FadeTo(1, 1000);
                 isCustomPlaybackControlsVisible = true;
             }
-        }
-
-        private async void ContentItemMediaElement_MediaOpened(object sender, EventArgs e)
-        {
-            isContentItemPlaying = true;
-            await CustomPlaybackControls.FadeTo(0, 2000);
-            isCustomPlaybackControlsVisible = false;
         }
 
         private void VolumeDownButton_Clicked(object sender, EventArgs e)
