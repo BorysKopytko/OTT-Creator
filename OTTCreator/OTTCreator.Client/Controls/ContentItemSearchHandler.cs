@@ -5,7 +5,7 @@ namespace OTTCreator.Client.Controls
 {
     public class ContentItemSearchHandler : SearchHandler
     {
-        private ClientDatabase clientDatabase { get; set; }
+        private ClientDatabase clientDatabase;
 
         public IList<ContentItem> ContentItems { get; set; }
         public Type SelectedItemNavigationTarget { get; set; }
@@ -13,6 +13,7 @@ namespace OTTCreator.Client.Controls
         public ContentItemSearchHandler()
         {
             clientDatabase = new ClientDatabase();
+
             var task = Task.Run(GetContentItems);
             task.Wait();
         }

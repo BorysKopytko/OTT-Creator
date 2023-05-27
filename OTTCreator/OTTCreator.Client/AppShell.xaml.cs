@@ -23,6 +23,17 @@ namespace OTTCreator.Client
         private async Task GenerateUI()
         {
             var contentItems = await clientDatabase.GetItemsAsync();
+
+            var UIFavoritesFlyoutItem = new FlyoutItem() { Title = "Улюблений вміст" };
+            foreach (var type in contentItems.Where(x => x.IsFavorite = true).Select(x => x.Type).Distinct().ToList())
+            {
+                var UIFavoritesType = new ShellContent();
+                UIFavoritesType.Title = type;
+                UIFavoritesType.ContentTemplate = new DataTemplate(typeof(CategoryPage));
+                UIFavoritesFlyoutItem.Items.Add(UIFavoritesType);
+            }
+            Shell.Items.Add(UIFavoritesFlyoutItem);
+
             foreach (var type in contentItems.Select(x => x.Type).Distinct().ToList())
             {
                 var UIType = new FlyoutItem() { Title = type };

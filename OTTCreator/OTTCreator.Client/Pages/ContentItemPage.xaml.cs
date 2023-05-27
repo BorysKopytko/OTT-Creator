@@ -1,16 +1,19 @@
 ﻿using CommunityToolkit.Maui.Views;
 using OTTCreator.Client.Data;
+using OTTCreator.Client.Models;
 
-namespace OTTCreator.Client
+namespace OTTCreator.Client.Pages
 {
     public partial class ContentItemPage : ContentPage
     {
         private ClientDatabase clientDatabase;
+        private ContentItem currentItem;
         private bool isCustomPlaybackControlsVisible;
         private bool isContentItemPlaying;
+        private bool hasVideo;
         private MediaSource currentStreamMediaSource;
         private Uri audioCoverImageBackup;
-
+        
         public ContentItemPage()
         {
             InitializeComponent();
@@ -25,8 +28,10 @@ namespace OTTCreator.Client
             var currentID = await SecureStorage.Default.GetAsync("CurrentID");
             if (currentID == null)
                 currentID = "1";
-            var currentItem = await clientDatabase.GetItemAsync(Convert.ToInt32(currentID));
+
+            currentItem = await clientDatabase.GetItemAsync(Convert.ToInt32(currentID));
             var currentStream = currentItem.Stream.ToString();
+
             if (currentStream != ContentItemMediaElement.Source.ToString().Replace("Uri: ", "") || currentStream == "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
             {
                 ContentItemMediaElement.Source = currentStream;
@@ -44,6 +49,7 @@ namespace OTTCreator.Client
 
                 if (!currentItem.HasVideo)
                 {
+                    hasVideo = false;
                     ContentItemMediaElement.IsVisible = false;
                     AudioCoverImage.Source = currentItem.Image;
                     AudioCoverImage.IsVisible = true;
@@ -51,6 +57,7 @@ namespace OTTCreator.Client
                 }
                 else
                 {
+                    hasVideo = true;
                     AudioCoverImage.IsVisible = false;
                     ContentItemMediaElement.IsVisible = true;
                 }
@@ -81,15 +88,19 @@ namespace OTTCreator.Client
             {
                 await CustomPlaybackControls.FadeTo(0, 1000);
                 isCustomPlaybackControlsVisible = false;
+                AspectButton.IsEnabled = false;
                 VolumeDownButton.IsEnabled = false;
                 StopAndPlayButton.IsEnabled = false;
                 VolumeUpButton.IsEnabled = false;
+                FavoriteButton.IsEnabled = false;
             }
             else
             {
+                AspectButton.IsEnabled = true;
                 VolumeDownButton.IsEnabled = true;
                 StopAndPlayButton.IsEnabled = true;
                 VolumeUpButton.IsEnabled = true;
+                FavoriteButton.IsEnabled = true;
                 await CustomPlaybackControls.FadeTo(1, 1000);
                 isCustomPlaybackControlsVisible = true;
             }
@@ -122,6 +133,39 @@ namespace OTTCreator.Client
         {
             if (ContentItemMediaElement.Volume != 1.0)
                 ContentItemMediaElement.Volume = double.Round(double.Round(ContentItemMediaElement.Volume, 1) + double.Round(0.1, 1), 1);
+        }
+
+        private void AspectButton_Clicked(object sender, EventArgs e)
+        {
+            if (hasVideo)
+            {
+                if (ContentItemMediaElement.Aspect == Aspect.AspectFit)
+                    ContentItemMediaElement.Aspect = Aspect.AspectFill;
+                else if (ContentItemMediaElement.Aspect == Aspect.AspectFill)
+                    ContentItemMediaElement.Aspect = Aspect.Fill;
+                else if (ContentItemMediaElement.Aspect == Aspect.Fill)
+                    ContentItemMediaElement.Aspect = Aspect.Center;
+                else
+                    ContentItemMediaElement.Aspect = Aspect.AspectFit;
+            }
+            else
+            {
+                if (AudioCoverImage.Aspect == Aspect.AspectFit)
+                    AudioCoverImage.Aspect = Aspect.AspectFill;
+                else if (AudioCoverImage.Aspect == Aspect.AspectFill)
+                    AudioCoverImage.Aspect = Aspect.Fill;
+                else if (AudioCoverImage.Aspect == Aspect.Fill)
+                    AudioCoverImage.Aspect = Aspect.Center;
+                else
+                    AudioCoverImage.Aspect = Aspect.AspectFit;
+            }
+
+        }
+
+        private async void FavoriteButton_Clicked(object sender, EventArgs e)
+        {
+            currentItem.IsFavorite = !currentItem.IsFavorite;
+            await clientDatabase.SaveItemAsync(currentItem);
         }
     }
 }
