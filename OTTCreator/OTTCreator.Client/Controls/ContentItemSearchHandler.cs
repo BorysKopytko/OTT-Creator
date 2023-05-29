@@ -13,7 +13,6 @@ namespace OTTCreator.Client.Controls
         public ContentItemSearchHandler()
         {
             clientDatabase = new ClientDatabase();
-
             var task = Task.Run(GetContentItems);
             task.Wait();
         }

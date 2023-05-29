@@ -32,7 +32,14 @@ namespace OTTCreator.Client.Pages
             currentItem = await clientDatabase.GetItemAsync(Convert.ToInt32(currentID));
             var currentStream = currentItem.Stream.ToString();
 
-            if (currentStream != ContentItemMediaElement.Source.ToString().Replace("Uri: ", "") || currentStream == "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
+            var currentVolume = await SecureStorage.Default.GetAsync("CurrentVolume");
+            if (currentVolume == null)
+                currentVolume = ContentItemMediaElement.Volume.ToString();
+            ContentItemMediaElement.Volume = Convert.ToSingle(currentVolume);
+
+            var currentAspect = await SecureStorage.Default.GetAsync("CurrentAspect");
+
+            if (currentStream != ContentItemMediaElement.Source.ToString().Replace("Uri: ", ""))
             {
                 ContentItemMediaElement.Source = currentStream;
 
@@ -50,6 +57,14 @@ namespace OTTCreator.Client.Pages
                 if (!currentItem.HasVideo)
                 {
                     hasVideo = false;
+                    if (currentAspect == "AspectFill")
+                        AudioCoverImage.Aspect = Aspect.AspectFill;
+                    else if (currentAspect == "Fill")
+                        AudioCoverImage.Aspect = Aspect.Fill;
+                    else if (currentAspect == "Center")
+                        AudioCoverImage.Aspect = Aspect.Center;
+                    else if (currentAspect == "AspectFit")
+                        AudioCoverImage.Aspect = Aspect.AspectFit;
                     ContentItemMediaElement.IsVisible = false;
                     AudioCoverImage.Source = currentItem.Image;
                     AudioCoverImage.IsVisible = true;
@@ -59,6 +74,14 @@ namespace OTTCreator.Client.Pages
                 {
                     hasVideo = true;
                     AudioCoverImage.IsVisible = false;
+                    if (currentAspect == "AspectFill")
+                        ContentItemMediaElement.Aspect = Aspect.AspectFill;
+                    else if (currentAspect == "Fill")
+                        ContentItemMediaElement.Aspect = Aspect.Fill;
+                    else if (currentAspect == "Center")
+                        ContentItemMediaElement.Aspect = Aspect.Center;
+                    else if (currentAspect == "AspectFit")
+                        ContentItemMediaElement.Aspect = Aspect.AspectFit;
                     ContentItemMediaElement.IsVisible = true;
                 }
 
@@ -68,9 +91,16 @@ namespace OTTCreator.Client.Pages
             AudioCoverImage.Source = audioCoverImageBackup;
         }
 
-        protected override void OnDisappearing()
+        protected async override void OnDisappearing()
         {
             base.OnDisappearing();
+
+            await SecureStorage.Default.SetAsync("CurrentVolume", ContentItemMediaElement.Volume.ToString());
+            if (hasVideo)
+                await SecureStorage.Default.SetAsync("CurrentAspect", ContentItemMediaElement.Aspect.ToString());
+            else
+                await SecureStorage.Default.SetAsync("CurrentAspect", AudioCoverImage.Aspect.ToString());
+
 
             AudioCoverImage.Source = null;
         }
@@ -78,7 +108,7 @@ namespace OTTCreator.Client.Pages
         private async void ContentItemMediaElement_MediaOpened(object sender, EventArgs e)
         {
             isContentItemPlaying = true;
-            await CustomPlaybackControls.FadeTo(0, 2000);
+            await CustomPlaybackControls.FadeTo(0, 500);
             isCustomPlaybackControlsVisible = false;
         }
 
@@ -86,7 +116,7 @@ namespace OTTCreator.Client.Pages
         {
             if (isCustomPlaybackControlsVisible)
             {
-                await CustomPlaybackControls.FadeTo(0, 1000);
+                await CustomPlaybackControls.FadeTo(0, 500);
                 isCustomPlaybackControlsVisible = false;
                 AspectButton.IsEnabled = false;
                 VolumeDownButton.IsEnabled = false;
@@ -101,7 +131,7 @@ namespace OTTCreator.Client.Pages
                 StopAndPlayButton.IsEnabled = true;
                 VolumeUpButton.IsEnabled = true;
                 FavoriteButton.IsEnabled = true;
-                await CustomPlaybackControls.FadeTo(1, 1000);
+                await CustomPlaybackControls.FadeTo(1, 500);
                 isCustomPlaybackControlsVisible = true;
             }
         }

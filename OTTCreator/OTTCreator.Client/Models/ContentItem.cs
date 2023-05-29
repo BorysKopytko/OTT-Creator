@@ -15,5 +15,6 @@ namespace OTTCreator.Client.Models
         public bool HasVideo { get; set; }
         public bool IsLive { get; set; }
         public bool IsFavorite { get; set; }
+        public bool IsRecommended { get; set; }
     }
 }

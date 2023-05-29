@@ -22,7 +22,6 @@ namespace OTTCreator.Client.Pages
             {
                 if (clientDatabase == null)
                     clientDatabase = new ClientDatabase();
-
                 await GenerateContentItemList();
 
                 Title = Shell.Current.CurrentItem.Title;
@@ -34,19 +33,23 @@ namespace OTTCreator.Client.Pages
             ContentItemList.Clear();
 
             var contentItems = await clientDatabase.GetItemsAsync();
+
             List<ContentItem> filteredContentItems = new List<ContentItem>();
             if (Shell.Current.CurrentItem.Title == "Улюблений вміст")
                 filteredContentItems = contentItems.Where(x => x.Type == Shell.Current.CurrentItem.CurrentItem.Title && x.IsFavorite == true).Distinct().ToList();
+            else if (Shell.Current.CurrentItem.Title == "Рекомендований вміст")
+                filteredContentItems = contentItems.Where(x => x.Type == Shell.Current.CurrentItem.CurrentItem.Title && x.IsRecommended == true).Distinct().ToList();
             else
                 filteredContentItems = contentItems.Where(x => x.Type == Shell.Current.CurrentItem.Title && x.Category == Shell.Current.CurrentItem.CurrentItem.Title).Distinct().ToList();
+            
             foreach (var contentItem in filteredContentItems)
             {
-                var imageButton = new ImageButton() { CommandParameter = contentItem.ID, Source = contentItem.CroppedImage, Aspect = Aspect.AspectFill, MinimumHeightRequest = 105, MinimumWidthRequest = 105, MaximumHeightRequest = 196, MaximumWidthRequest = 196, Margin = 5 };
+                var imageButton = new ImageButton() { CommandParameter = contentItem.ID, Source = contentItem.CroppedImage, Aspect = Aspect.AspectFill, MinimumHeightRequest = 105, MinimumWidthRequest = 105, MaximumHeightRequest = 196, MaximumWidthRequest = 196, Margin = 5, CornerRadius=5 };
                 imageButton.Clicked += ImageButton_Clicked;
                 ContentItemList.Add(imageButton);
             }
 
-            if (Shell.Current.CurrentItem.Title != "Улюблений вміст")
+            if (Shell.Current.CurrentItem.Title != "Улюблений вміст" || Shell.Current.CurrentItem.Title != "Рекомендований вміст")
             {
                 previousType = Shell.Current.CurrentItem.Title;
                 previousCategory = Shell.Current.CurrentItem.CurrentItem.Title;
