@@ -36,9 +36,9 @@ namespace OTTCreator.Client.Pages
 
             List<ContentItem> filteredContentItems = new List<ContentItem>();
             if (Shell.Current.CurrentItem.Title == "Улюблений вміст")
-                filteredContentItems = contentItems.Where(x => x.Type == Shell.Current.CurrentItem.CurrentItem.Title && x.IsFavorite == true).Distinct().ToList();
+                filteredContentItems = contentItems.Where(x => x.Type == Shell.Current.CurrentItem.CurrentItem.Title && x.IsFavorite == true).ToList();
             else if (Shell.Current.CurrentItem.Title == "Рекомендований вміст")
-                filteredContentItems = contentItems.Where(x => x.Type == Shell.Current.CurrentItem.CurrentItem.Title && x.IsRecommended == true).Distinct().ToList();
+                filteredContentItems = contentItems.Where(x => x.Type == Shell.Current.CurrentItem.CurrentItem.Title && x.IsRecommended == true).ToList();
             else
                 filteredContentItems = contentItems.Where(x => x.Type == Shell.Current.CurrentItem.Title && x.Category == Shell.Current.CurrentItem.CurrentItem.Title).Distinct().ToList();
             
@@ -49,7 +49,7 @@ namespace OTTCreator.Client.Pages
                 ContentItemList.Add(imageButton);
             }
 
-            if (Shell.Current.CurrentItem.Title != "Улюблений вміст" || Shell.Current.CurrentItem.Title != "Рекомендований вміст")
+            if (Shell.Current.CurrentItem.Title != "Улюблений вміст" && Shell.Current.CurrentItem.Title != "Рекомендований вміст")
             {
                 previousType = Shell.Current.CurrentItem.Title;
                 previousCategory = Shell.Current.CurrentItem.CurrentItem.Title;

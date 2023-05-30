@@ -20,7 +20,7 @@ namespace OTTCreator.Client.Controls
         private async Task GetContentItems()
         {
             var contentItems = await clientDatabase.GetItemsAsync();
-            ContentItems = contentItems.Distinct().ToList();
+            ContentItems = contentItems.ToList();
         }
 
         protected override void OnQueryChanged(string oldValue, string newValue)

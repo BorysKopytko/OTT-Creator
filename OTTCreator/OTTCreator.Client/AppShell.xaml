@@ -11,4 +11,14 @@
         Title="Поточне відтворення"
         ContentTemplate="{DataTemplate pages:ContentItemPage}"
         Route="ContentItemPage"/>
+    <FlyoutItem
+        x:Name="FavoriteContentFlyoutItem"
+        Title="Улюблений вміст"/>
+    <FlyoutItem
+        x:Name="RecommendedContentFlyoutItem"
+        Title="Рекомендований вміст"/>
+    <ShellContent
+        Title="Підтримка"
+        ContentTemplate="{DataTemplate pages:SupportPage}"
+        Route="SupportPage"/>
 </Shell>

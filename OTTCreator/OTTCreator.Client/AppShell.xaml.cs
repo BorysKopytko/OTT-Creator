@@ -15,8 +15,14 @@ namespace OTTCreator.Client
             var task = Task.Run(GenerateUI);
             task.Wait();
 
+            RegisterRoutes();
+        }
+
+        private void RegisterRoutes()
+        {
             Routing.RegisterRoute("ContentItemPage", typeof(ContentItemPage));
             Routing.RegisterRoute("CategoryPage", typeof(CategoryPage));
+            Routing.RegisterRoute("SupportPage", typeof(SupportPage));
         }
 
         private async Task GenerateUI()
@@ -25,22 +31,20 @@ namespace OTTCreator.Client
 
             var categoryPageDataTemplate = new DataTemplate(typeof(CategoryPage));
 
-            var UIFavoritesFlyoutItem = new FlyoutItem() { Title = "Улюблений вміст" };
-            var UIRecommendationsFlyoutItem = new FlyoutItem() { Title = "Рекомендований вміст" };
             foreach (var type in contentItems.Select(x => x.Type).Distinct().ToList())
             {
-                UIFavoritesFlyoutItem.Items.Add(new ShellContent() { Title = type, ContentTemplate = categoryPageDataTemplate });
-                UIRecommendationsFlyoutItem.Items.Add(new ShellContent() { Title = type, ContentTemplate = categoryPageDataTemplate });
+                FavoriteContentFlyoutItem.Items.Add(new ShellContent() { Title = type, ContentTemplate = categoryPageDataTemplate });
+                RecommendedContentFlyoutItem.Items.Add(new ShellContent() { Title = type, ContentTemplate = categoryPageDataTemplate });
             }
-            Shell.Items.Add(UIFavoritesFlyoutItem);
-            Shell.Items.Add(UIRecommendationsFlyoutItem);
 
+            var firstDefaultShellContentsCount = 3;
             foreach (var type in contentItems.Select(x => x.Type).Distinct().ToList())
             {
                 var UIType = new FlyoutItem() { Title = type };
                 foreach (var category in contentItems.Where(x => x.Type == type).Select(x => x.Category).Distinct().ToList())
                     UIType.Items.Add(new ShellContent() { Title = category, ContentTemplate = categoryPageDataTemplate });
-                Shell.Items.Add(UIType);
+                Shell.Items.Insert(firstDefaultShellContentsCount, UIType);
+                firstDefaultShellContentsCount++;
             }
         }
     }

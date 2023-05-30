@@ -57,12 +57,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\SupportPage.xaml.cs">
+	    <DependentUpon>SupportPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\ContentItemPage.xaml.cs">
 	    <DependentUpon>ContentItemPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\SupportPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\BeforeContentItemPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

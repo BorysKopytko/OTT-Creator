@@ -57,6 +57,7 @@ namespace OTTCreator.Client.Pages
                 if (!currentItem.HasVideo)
                 {
                     hasVideo = false;
+                    ContentItemMediaElement.IsVisible = false;
                     if (currentAspect == "AspectFill")
                         AudioCoverImage.Aspect = Aspect.AspectFill;
                     else if (currentAspect == "Fill")
@@ -65,7 +66,6 @@ namespace OTTCreator.Client.Pages
                         AudioCoverImage.Aspect = Aspect.Center;
                     else if (currentAspect == "AspectFit")
                         AudioCoverImage.Aspect = Aspect.AspectFit;
-                    ContentItemMediaElement.IsVisible = false;
                     AudioCoverImage.Source = currentItem.Image;
                     AudioCoverImage.IsVisible = true;
                     audioCoverImageBackup = currentItem.Image;
@@ -189,7 +189,6 @@ namespace OTTCreator.Client.Pages
                 else
                     AudioCoverImage.Aspect = Aspect.AspectFit;
             }
-
         }
 
         private async void FavoriteButton_Clicked(object sender, EventArgs e)
