@@ -5,9 +5,9 @@ VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OTTCreator.Client", "OTTCreator.Client\OTTCreator.Client.csproj", "{248C6382-2D02-47C0-85C9-4E4269CCB3CE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OTTCreator.Server", "OTTCreator.Server\OTTCreator.Server.csproj", "{39E6403B-6C52-4A5F-9292-81844237651A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OTTCreator.API", "OTTCreator.Server\OTTCreator.API.csproj", "{39E6403B-6C52-4A5F-9292-81844237651A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTTCreator.Configurator", "OTTCreator.Configurator\OTTCreator.Configurator.csproj", "{F9BFAA26-B7D3-4A7E-8540-1F30FE9A11E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OTTCreator.Configurator", "OTTCreator.Configurator\OTTCreator.Configurator.csproj", "{F9BFAA26-B7D3-4A7E-8540-1F30FE9A11E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
