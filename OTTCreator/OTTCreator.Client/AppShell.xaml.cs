@@ -1,17 +1,17 @@
-﻿using OTTCreator.Client.Data;
-using OTTCreator.Client.Pages;
+﻿using OTTCreator.Client.Pages;
+using OTTCreator.Client.Services;
 
 namespace OTTCreator.Client
 {
     public partial class AppShell : Shell
     {
-        private ClientDatabase clientDatabase;
+        ContentService contentService;
 
         public AppShell()
         {
             InitializeComponent();
 
-            clientDatabase = new ClientDatabase();
+            contentService = new ContentService();    
             var task = Task.Run(GenerateUI);
             task.Wait();
 
@@ -27,21 +27,22 @@ namespace OTTCreator.Client
 
         private async Task GenerateUI()
         {
-            var contentItems = await clientDatabase.GetItemsAsync();
+            var types = await contentService.GetTypesAsync();
 
             var categoryPageDataTemplate = new DataTemplate(typeof(CategoryPage));
 
-            foreach (var type in contentItems.Select(x => x.Type).Distinct().ToList())
+            foreach (var type in types)
             {
                 FavoriteContentFlyoutItem.Items.Add(new ShellContent() { Title = type, ContentTemplate = categoryPageDataTemplate });
                 RecommendedContentFlyoutItem.Items.Add(new ShellContent() { Title = type, ContentTemplate = categoryPageDataTemplate });
             }
 
             var firstDefaultShellContentsCount = 3;
-            foreach (var type in contentItems.Select(x => x.Type).Distinct().ToList())
+            foreach (var type in types)
             {
                 var UIType = new FlyoutItem() { Title = type };
-                foreach (var category in contentItems.Where(x => x.Type == type).Select(x => x.Category).Distinct().ToList())
+                var categories = await contentService.GetCategoriesAsync(type);
+                foreach (var category in categories)
                     UIType.Items.Add(new ShellContent() { Title = category, ContentTemplate = categoryPageDataTemplate });
                 Shell.Items.Insert(firstDefaultShellContentsCount, UIType);
                 firstDefaultShellContentsCount++;

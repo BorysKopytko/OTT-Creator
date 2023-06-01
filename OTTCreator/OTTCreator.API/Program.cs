@@ -6,6 +6,9 @@ builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 var app = builder.Build();
 
+app.MapGet("contentitems", async (ApplicationDbContext db) =>
+    await db.ContentItems.ToListAsync());
+
 app.MapGet("types", async (ApplicationDbContext db) =>
     await db.ContentItems.Select(c => c.Type).Distinct().ToListAsync());
 

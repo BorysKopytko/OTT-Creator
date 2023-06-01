@@ -1,24 +1,27 @@
 ﻿using CommunityToolkit.Maui.Views;
 using OTTCreator.Client.Data;
 using OTTCreator.Client.Models;
+using OTTCreator.Client.Services;
 
 namespace OTTCreator.Client.Pages
 {
     public partial class ContentItemPage : ContentPage
     {
-        private ClientDatabase clientDatabase;
+
         private ContentItem currentItem;
         private bool isCustomPlaybackControlsVisible;
         private bool isContentItemPlaying;
         private bool hasVideo;
         private MediaSource currentStreamMediaSource;
         private Uri audioCoverImageBackup;
+        private ContentService contentService;
+        private bool isFavorite;
         
         public ContentItemPage()
         {
             InitializeComponent();
 
-            clientDatabase = new ClientDatabase();
+            contentService = new ContentService();
         }
 
         protected override async void OnAppearing()
@@ -29,7 +32,7 @@ namespace OTTCreator.Client.Pages
             if (currentID == null)
                 currentID = "1";
 
-            currentItem = await clientDatabase.GetItemAsync(Convert.ToInt32(currentID));
+            currentItem = await contentService.GetContentItemAsync(Convert.ToInt32(currentID));
             var currentStream = currentItem.Stream.ToString();
 
             var currentVolume = await SecureStorage.Default.GetAsync("CurrentVolume");
@@ -193,8 +196,7 @@ namespace OTTCreator.Client.Pages
 
         private async void FavoriteButton_Clicked(object sender, EventArgs e)
         {
-            currentItem.IsFavorite = !currentItem.IsFavorite;
-            await clientDatabase.SaveItemAsync(currentItem);
+            await contentService.SaveContentItemFavoriteAsync(currentItem.ID);
         }
     }
 }

@@ -12,4 +12,9 @@
         Path.Combine(FileSystem.AppDataDirectory, databaseFileName);
 
     public const bool isTestDataNeeded = true;
+
+    public static string LocalhostUrl = DeviceInfo.Platform == DevicePlatform.Android ? "10.0.2.2" : "localhost";
+    public static string Scheme = "http"; // or http
+    public static string Port = "5217";
+    public static string APIUrl = $"{Scheme}://{LocalhostUrl}:{Port}/";
 }
