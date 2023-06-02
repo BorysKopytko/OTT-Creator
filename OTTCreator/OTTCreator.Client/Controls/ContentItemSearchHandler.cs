@@ -1,26 +1,26 @@
-﻿using OTTCreator.Client.Data;
-using OTTCreator.Client.Models;
+﻿using OTTCreator.Client.Models;
+using OTTCreator.Client.Services;
 
 namespace OTTCreator.Client.Controls
 {
     public class ContentItemSearchHandler : SearchHandler
     {
-        private ClientDatabase clientDatabase;
+        private ContentService contentService;
 
         public IList<ContentItem> ContentItems { get; set; }
         public Type SelectedItemNavigationTarget { get; set; }
         
         public ContentItemSearchHandler()
         {
-            clientDatabase = new ClientDatabase();
+            contentService = new ContentService();
             var task = Task.Run(GetContentItems);
             task.Wait();
         }
 
         private async Task GetContentItems()
         {
-            var contentItems = await clientDatabase.GetItemsAsync();
-            ContentItems = contentItems.ToList();
+            var contentItems = await contentService.GetContentItemsAsync();
+            ContentItems = contentItems;
         }
 
         protected override void OnQueryChanged(string oldValue, string newValue)
