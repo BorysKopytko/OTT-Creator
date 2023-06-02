@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Maui.Views;
-using OTTCreator.Client.Data;
 using OTTCreator.Client.Models;
 using OTTCreator.Client.Services;
 
@@ -7,7 +6,6 @@ namespace OTTCreator.Client.Pages
 {
     public partial class ContentItemPage : ContentPage
     {
-
         private ContentItem currentItem;
         private bool isCustomPlaybackControlsVisible;
         private bool isContentItemPlaying;
@@ -15,7 +13,6 @@ namespace OTTCreator.Client.Pages
         private MediaSource currentStreamMediaSource;
         private Uri audioCoverImageBackup;
         private ContentService contentService;
-        private bool isFavorite;
         
         public ContentItemPage()
         {

@@ -1,5 +1,4 @@
-﻿using OTTCreator.Client.Data;
-using OTTCreator.Client.Models;
+﻿using OTTCreator.Client.Models;
 using OTTCreator.Client.Services;
 
 namespace OTTCreator.Client.Controls
@@ -7,7 +6,6 @@ namespace OTTCreator.Client.Controls
     public class ContentItemSearchHandler : SearchHandler
     {
         private ContentService contentService;
-
 
         public IList<ContentItem> ContentItems { get; set; }
         public Type SelectedItemNavigationTarget { get; set; }

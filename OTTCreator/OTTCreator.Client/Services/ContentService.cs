@@ -2,51 +2,53 @@
 
 namespace OTTCreator.Client.Services
 {
-    public class ContentService : IContentService
+    public class ContentService
     {
-        IRestService _restService;
+        RestService restService;
 
         public ContentService()
         {
-            _restService = new RestService();
+            restService = new RestService();
         }
+
         public Task<List<ContentItem>> GetContentItemsAsync()
         {
-            return _restService.GetContentItemsAsync();
+            return restService.GetContentItemsAsync();
         }
+
         public Task<List<ContentItem>> GetContentItemsAsync(string type, string category)
         {
-            return _restService.GetContentItemsAsync(type, category);
+            return restService.GetContentItemsAsync(type, category);
         }
+
         public Task<ContentItem> GetContentItemAsync(int id)
         {
-            return _restService.GetContentItemAsync(id);
+            return restService.GetContentItemAsync(id);
         }
 
         public Task<List<string>> GetTypesAsync()
         {
-            return _restService.GetTypesAsync();
-        }
-        public Task<List<string>> GetCategoriesAsync(string type)
-        {
-            return _restService.GetCategoriesAsync(type);
-        }
-        public Task<List<ContentItem>> GetFavoritesAsync(string type)
-        {
-            return _restService.GetFavoritesAsync(type);
-        }
-        public Task<List<ContentItem>> GetRecommendedAsync(string type)
-        {
-            return _restService.GetRecommendedAsync(type);
-        }
-        public Task SaveContentItemFavoriteAsync(int id)
-        {
-            return _restService.SaveContentItemFavoriteAsync(id);
+            return restService.GetTypesAsync();
         }
 
-        public Task DeleteContentItemAsync(ContentItem contentItem)
+        public Task<List<string>> GetCategoriesAsync(string type)
         {
-            return _restService.DeleteContentItemAsync(contentItem.ID.ToString());
+            return restService.GetCategoriesAsync(type);
+        }
+
+        public Task<List<ContentItem>> GetFavoritesAsync(string type)
+        {
+            return restService.GetFavoritesAsync(type);
+        }
+
+        public Task<List<ContentItem>> GetRecommendedAsync(string type)
+        {
+            return restService.GetRecommendedAsync(type);
+        }
+
+        public Task SaveContentItemFavoriteAsync(int id)
+        {
+            return restService.SaveContentItemFavoriteAsync(id);
         }
     }
 }

@@ -5,27 +5,25 @@ using OTTCreator.Client.Models;
 
 namespace OTTCreator.Client.Services
 {
-    public class RestService : IRestService
+    public class RestService
     {
-        HttpClient _client;
-        JsonSerializerOptions _serializerOptions;
-        IHttpsClientHandlerService _httpsClientHandlerService;
-
-        public List<ContentItem> ContentItems { get; private set; }
+        HttpClient client;
+        JsonSerializerOptions serializerOptions;
+        HttpsClientHandlerService httpsClientHandlerService;
 
         public RestService()
         {
 #if DEBUG
-            _httpsClientHandlerService = new HttpsClientHandlerService();
-            HttpMessageHandler handler = _httpsClientHandlerService.GetPlatformMessageHandler();
+            httpsClientHandlerService = new HttpsClientHandlerService();
+            var handler = httpsClientHandlerService.GetPlatformMessageHandler();
             if (handler != null)
-                _client = new HttpClient(handler);
+                client = new HttpClient(handler);
             else
-                _client = new HttpClient();
+                client = new HttpClient();
 #else
             _client = new HttpClient();
 #endif
-            _serializerOptions = new JsonSerializerOptions
+            serializerOptions = new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 WriteIndented = true
@@ -34,65 +32,65 @@ namespace OTTCreator.Client.Services
 
         public async Task<List<ContentItem>> GetContentItemsAsync()
         {
-            ContentItems = new List<ContentItem>();
+            var contentItems = new List<ContentItem>();
 
-            Uri uri = new Uri(string.Format(Constants.APIUrl + "contentitems", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/contentitems", string.Empty));
             try
             {
-                HttpResponseMessage response = await _client.GetAsync(uri);
+                var response = await client.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
-                    string content = await response.Content.ReadAsStringAsync();
-                    ContentItems = JsonSerializer.Deserialize<List<ContentItem>>(content, _serializerOptions);
+                    var content = await response.Content.ReadAsStringAsync();
+                    contentItems = JsonSerializer.Deserialize<List<ContentItem>>(content, serializerOptions);
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                Debug.WriteLine(@"\tError {0}", ex.Message);
             }
 
-            return ContentItems;
+            return contentItems;
         }
 
         public async Task<List<ContentItem>> GetContentItemsAsync(string type, string category)
         {
-            ContentItems = new List<ContentItem>();
+            var contentItems = new List<ContentItem>();
 
-            Uri uri = new Uri(string.Format(Constants.APIUrl + type + "/" + category + "/contentitems", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/{type}/{category}/contentitems", string.Empty));
             try
             {
-                HttpResponseMessage response = await _client.GetAsync(uri);
+                var response = await client.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
-                    string content = await response.Content.ReadAsStringAsync();
-                    ContentItems = JsonSerializer.Deserialize<List<ContentItem>>(content, _serializerOptions);
+                    var content = await response.Content.ReadAsStringAsync();
+                    contentItems = JsonSerializer.Deserialize<List<ContentItem>>(content, serializerOptions);
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                Debug.WriteLine(@"\tError {0}", ex.Message);
             }
 
-            return ContentItems;
+            return contentItems;
         }
 
         public async Task<ContentItem> GetContentItemAsync(int id)
         {
-            ContentItem contentItem = new ContentItem();
+            var contentItem = new ContentItem();
 
-            Uri uri = new Uri(string.Format(Constants.APIUrl + "contentitems/" + id, string.Empty));
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/contentitems/{id}", string.Empty));
             try
             {
-                HttpResponseMessage response = await _client.GetAsync(uri);
+                var response = await client.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
-                    string content = await response.Content.ReadAsStringAsync();
-                    contentItem = JsonSerializer.Deserialize<ContentItem>(content, _serializerOptions);
+                    var content = await response.Content.ReadAsStringAsync();
+                    contentItem = JsonSerializer.Deserialize<ContentItem>(content, serializerOptions);
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                Debug.WriteLine(@"\tError {0}", ex.Message);
             }
 
             return contentItem;
@@ -100,125 +98,109 @@ namespace OTTCreator.Client.Services
 
         public async Task<List<string>> GetTypesAsync()
         {
-            var types = new List<string>();
+            var contentItemsStrings = new List<string>();
 
-            Uri uri = new Uri(string.Format(Constants.APIUrl + "types", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/types", string.Empty));
             try
             {
-                HttpResponseMessage response = await _client.GetAsync(uri);
+                var response = await client.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
-                    string content = await response.Content.ReadAsStringAsync();
-                    types = JsonSerializer.Deserialize<List<string>>(content, _serializerOptions);
+                    var content = await response.Content.ReadAsStringAsync();
+                    contentItemsStrings = JsonSerializer.Deserialize<List<string>>(content, serializerOptions);
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                Debug.WriteLine(@"\tError {0}", ex.Message);
             }
 
-            return types;
+            return contentItemsStrings;
         }
 
         public async Task<List<string>> GetCategoriesAsync(string type)
         {
-            var categories = new List<string>();
+            var contentItemsStrings = new List<string>();
 
-            Uri uri = new Uri(string.Format(Constants.APIUrl + type + "/categories", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/{type}/categories", string.Empty));
             try
             {
-                HttpResponseMessage response = await _client.GetAsync(uri);
+                var response = await client.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
-                    string content = await response.Content.ReadAsStringAsync();
-                    categories = JsonSerializer.Deserialize<List<string>>(content, _serializerOptions);
+                    var content = await response.Content.ReadAsStringAsync();
+                    contentItemsStrings = JsonSerializer.Deserialize<List<string>>(content, serializerOptions);
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                Debug.WriteLine(@"\tError {0}", ex.Message);
             }
 
-            return categories;
+            return contentItemsStrings;
         }
 
         public async Task<List<ContentItem>> GetFavoritesAsync(string type)
         {
-            var favorites = new List<ContentItem>();
+            var contentItems = new List<ContentItem>();
 
-            Uri uri = new Uri(string.Format(Constants.APIUrl + type + "/contentitems/favorites/", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/{type}/contentitems/favorites/", string.Empty));
             try
             {
-                HttpResponseMessage response = await _client.GetAsync(uri);
+                var response = await client.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
-                    string content = await response.Content.ReadAsStringAsync();
-                    favorites = JsonSerializer.Deserialize<List<ContentItem>>(content, _serializerOptions);
+                    var content = await response.Content.ReadAsStringAsync();
+                    contentItems = JsonSerializer.Deserialize<List<ContentItem>>(content, serializerOptions);
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                Debug.WriteLine(@"\tError {0}", ex.Message);
             }
 
-            return favorites;
+            return contentItems;
         }
 
         public async Task<List<ContentItem>> GetRecommendedAsync(string type)
         {
-            var recommended = new List<ContentItem>();
+            var contentItems = new List<ContentItem>();
 
-            Uri uri = new Uri(string.Format(Constants.APIUrl + type + "/contentitems/recommended/", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/{type}/contentitems/recommended/", string.Empty));
             try
             {
-                HttpResponseMessage response = await _client.GetAsync(uri);
+                var response = await client.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
-                    string content = await response.Content.ReadAsStringAsync();
-                    recommended = JsonSerializer.Deserialize<List<ContentItem>>(content, _serializerOptions);
+                    var content = await response.Content.ReadAsStringAsync();
+                    contentItems = JsonSerializer.Deserialize<List<ContentItem>>(content, serializerOptions);
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                Debug.WriteLine(@"\tError {0}", ex.Message);
             }
 
-            return recommended;
+            return contentItems;
         }
 
         public async Task SaveContentItemFavoriteAsync(int id)
         {
-            Uri uri = new Uri(string.Format(Constants.APIUrl+"contentitems/"+id+"/favorite", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/contentitems/{id}/favorite", string.Empty));
 
             try
             {
-                string json = JsonSerializer.Serialize<int>(id, _serializerOptions);
-                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                var json = JsonSerializer.Serialize<int>(id, serializerOptions);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await _client.PutAsync(uri, content);
+                var response = await client.PutAsync(uri, content);
 
                 if (response.IsSuccessStatusCode)
                     Debug.WriteLine(@"\tContentItem successfully saved.");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(@"\tERROR {0}", ex.Message);
-            }
-        }
-
-        public async Task DeleteContentItemAsync(string id)
-        {
-            Uri uri = new Uri(string.Format("", id));
-
-            try
-            {
-                HttpResponseMessage response = await _client.DeleteAsync(uri);
-                if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"\tContentItem successfully deleted.");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                Debug.WriteLine(@"\tError {0}", ex.Message);
             }
         }
     }
