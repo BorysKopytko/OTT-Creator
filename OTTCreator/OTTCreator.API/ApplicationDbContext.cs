@@ -2,9 +2,9 @@
 
 namespace OTTCreator.API
 {
-    class ApplicationDbContext : DbContext
+    class ApplicationIdentityDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        public ApplicationIdentityDbContext(DbContextOptions<ApplicationIdentityDbContext> options) : base(options)
         {
             Database.EnsureCreated();
         }
