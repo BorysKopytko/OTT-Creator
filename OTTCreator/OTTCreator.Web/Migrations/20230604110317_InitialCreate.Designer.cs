@@ -12,7 +12,7 @@ using OTTCreator.Web.Data;
 namespace OTTCreator.Web.Migrations
 {
     [DbContext(typeof(ApplicationIdentityDbContext))]
-    [Migration("20230603173305_InitialCreate")]
+    [Migration("20230604110317_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -170,8 +170,15 @@ namespace OTTCreator.Web.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int>("ActiveDevices")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DevicesAndCodes")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")

@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
 using OTTCreator.Web.Areas.Identity.Data;
 
@@ -114,6 +115,16 @@ namespace OTTCreator.Web.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+                user.DevicesAndCodes = new Dictionary<string, Guid>
+                {
+                    { "Пристрій 1", Guid.NewGuid() },
+                    { "Пристрій 2", Guid.NewGuid() },
+                    { "Пристрій 3", Guid.NewGuid() },
+                    { "Пристрій 4", Guid.NewGuid() },
+                    { "Пристрій 5", Guid.NewGuid() }
+                };
+
+
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
