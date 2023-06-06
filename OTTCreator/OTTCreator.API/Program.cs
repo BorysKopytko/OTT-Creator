@@ -18,16 +18,16 @@ async Task<User> GetUser(ApplicationIdentityDbContext db, string code)
     return user;
 }
 
-app.MapPut("activate/{apikey}/{code}", async (string apikey, string code, ApplicationIdentityDbContext db) =>
+app.MapPut("activate/{activateOrDeactivate}/{apikey}/{code}", async (bool activateOrDeactivate, string apikey, string code, ApplicationIdentityDbContext db) =>
 {
     if (apikey == APIKey)
     {
         var user = await GetUser(db, code);
         if (user != null)
         {
-            if (user.CodesAndUse[Guid.Parse(code)] != true)
+            if (user.CodesAndUse[Guid.Parse(code)] != activateOrDeactivate)
             {
-                user.CodesAndUse[Guid.Parse(code)] = true;
+                user.CodesAndUse[Guid.Parse(code)] = activateOrDeactivate;
                 db.Entry(user).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return Results.Ok();
@@ -56,7 +56,9 @@ app.MapGet("types/{apikey}/{code}", async (string apikey, string code, Applicati
     {
         var user = await GetUser(db, code);
         if (user != null)
-            return await db.ContentItems.Select(c => c.Type).Distinct().ToListAsync();
+        {
+            return Enumerable.Reverse(await db.ContentItems.Select(c => c.Type).Distinct().AsQueryable().ToListAsync());
+        }       
     }
     return null;
 });

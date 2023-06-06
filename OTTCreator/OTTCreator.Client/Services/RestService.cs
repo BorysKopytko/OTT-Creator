@@ -227,9 +227,9 @@ namespace OTTCreator.Client.Services
             }
         }
 
-        public async Task<bool> ActivateAsync(string apikey, string code)
+        public async Task<bool> ActivateAsync(bool activateOrDeactivate, string apikey, string code)
         {
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/activate/{apikey}/{code}", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/activate/{activateOrDeactivate}/{apikey}/{code}", string.Empty));
 
             try
             {

@@ -214,7 +214,7 @@ public partial class ContentItemPage : ContentPage
     private async void SendButton_Clicked(object sender, EventArgs e)
     {
         var apikey = await SecureStorage.Default.GetAsync("APIKey");
-        var result = await contentService.ActivateAsync(apikey, CodeEntry.Text);
+        var result = await contentService.ActivateAsync(true, apikey, CodeEntry.Text);
         if(result)
         {
             await SecureStorage.Default.SetAsync("Code", CodeEntry.Text);

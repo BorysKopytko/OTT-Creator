@@ -51,9 +51,9 @@ namespace OTTCreator.Client.Services
             return restService.SaveContentItemFavoriteAsync(id);
         }
 
-        public Task<bool> ActivateAsync(string apikey, string code)
+        public Task<bool> ActivateAsync(bool activateOrDeactivate, string apikey, string code)
         {
-            return restService.ActivateAsync(apikey,code);
+            return restService.ActivateAsync(activateOrDeactivate, apikey,code);
         }
     }
 }
