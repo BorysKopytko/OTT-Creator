@@ -14,6 +14,7 @@
         <toolkit:MediaElement x:Name="ContentItemMediaElement"
                       ShouldAutoPlay="True"
                       ShouldKeepScreenOn="True"
+                      ShouldShowPlaybackControls="False"
                       Source="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
                       MediaOpened="ContentItemMediaElement_MediaOpened"
                       Background="Transparent"
@@ -50,5 +51,33 @@
                     IsEnabled="False"
                     Margin="10"/>
         </HorizontalStackLayout>
+        <FlexLayout x:Name="ActivationScreen" 
+                    Background="Black" 
+                    ZIndex="2" 
+                    AlignContent="Center" 
+                    AlignItems="Center" 
+                    JustifyContent="Center">
+            <VerticalStackLayout VerticalOptions="Center"
+                                 HorizontalOptions="Center"
+                                 Background="Black">
+                <Label x:Name="CodeInstructionPart1Label"
+                       Text="Активація"
+                       FontSize="Large"
+                       Padding="10"/>
+                <Label x:Name="CodeInstructionPart2Label"
+                   Text="1. Перейдіть за посиланням"/>
+                <Label x:Name="CodeInstructionLink"
+                       Text="https://localhost:7002/"/>
+                <Label x:Name="CodeInstructionPart3Label"
+                       Text="та ввійдіть в / зареєструйте обліковий запис, де скопіюйте вільний код.&#xA;2. Введіть його в поле, розташоване під інструкцією.&#xA;3. Натисніть кнопку активації - додаток завершить роботу.&#xA;4. Запустіть додаток.&#xA;5. Насолоджуйтесь вмістом :)"/>
+                <Entry x:Name="CodeEntry" 
+                       Placeholder="Введіть код"
+                       Margin="10"/>
+                <Button x:Name="SendCodeButton" 
+                        Text="Активувати"
+                        Clicked="SendButton_Clicked"
+                        />
+            </VerticalStackLayout>
+        </FlexLayout>
     </Grid>
 </ContentPage>

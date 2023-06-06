@@ -1,22 +1,41 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
-namespace OTTCreator.API
+namespace OTTCreator.API.Models;
+
+public class ApplicationIdentityDbContext : IdentityDbContext<User>
 {
-    class ApplicationIdentityDbContext : DbContext
+    public ApplicationIdentityDbContext(DbContextOptions<ApplicationIdentityDbContext> options) : base(options) { }
+
+    public DbSet<ContentItem> ContentItems { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
+        optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=OTTCreator;Trusted_Connection=True;MultipleActiveResultSets=true");
+
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        public ApplicationIdentityDbContext(DbContextOptions<ApplicationIdentityDbContext> options) : base(options)
-        {
-            Database.EnsureCreated();
-        }
+        base.OnModelCreating(builder);
 
-        public DbSet<ContentItem> ContentItems { get; set; }
+        builder.Entity<User>()
+        .Property(b => b.CodesAndUse)
+        .HasConversion(
+            v => JsonConvert.SerializeObject(v),
+            v => JsonConvert.DeserializeObject<Dictionary<Guid, bool>>(v));
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Filename=OTTCreatorDatabase.db");
+        builder.Entity<User>()
+        .Property(b => b.FavoriteContentItemsIDs)
+        .HasConversion(
+            v => JsonConvert.SerializeObject(v),
+            v => JsonConvert.DeserializeObject<List<int>>(v));
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<ContentItem>().HasData(
+        builder.Entity<User>()
+        .Property(b => b.RecommendedContentItemsIDs)
+        .HasConversion(
+            v => JsonConvert.SerializeObject(v),
+            v => JsonConvert.DeserializeObject<List<int>>(v));
+
+        builder.Entity<ContentItem>().HasData(
             new ContentItem
             {
                 ID = 1,
@@ -25,7 +44,6 @@ namespace OTTCreator.API
                 Type = "Телеканали",
                 HasVideo = true,
                 IsLive = true,
-                IsFavorite = false,
                 Image = new Uri("https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg"),
                 CroppedImage = new Uri("https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg"),
                 Stream = new Uri("https://bloomberg.com/media-manifest/streams/eu.m3u8")
@@ -38,7 +56,6 @@ namespace OTTCreator.API
                 Type = "Телеканали",
                 HasVideo = true,
                 IsLive = true,
-                IsFavorite = false,
                 CroppedImage = new Uri("https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg"),
                 Image = new Uri("https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg"),
                 Stream = new Uri("https://i.mjh.nz/PlutoTV/5a6b92f6e22a617379789618-alt.m3u8")
@@ -51,7 +68,6 @@ namespace OTTCreator.API
                 Type = "Телеканали",
                 HasVideo = true,
                 IsLive = true,
-                IsFavorite = false,
                 CroppedImage = new Uri("https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg"),
                 Image = new Uri("https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg"),
                 Stream = new Uri("https://ythls.onrender.com/channel/UCH9H_b9oJtSHBovh94yB5HA.m3u8")
@@ -64,7 +80,6 @@ namespace OTTCreator.API
                 Type = "Телеканали",
                 HasVideo = true,
                 IsLive = true,
-                IsFavorite = false,
                 CroppedImage = new Uri("https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg"),
                 Image = new Uri("https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg"),
                 Stream = new Uri("https://ythls.onrender.com/channel/UCMEiyV8N2J93GdPNltPYM6w.m3u8")
@@ -77,7 +92,6 @@ namespace OTTCreator.API
                 Type = "Радіостанції",
                 HasVideo = false,
                 IsLive = true,
-                IsFavorite = false,
                 CroppedImage = new Uri("https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg"),
                 Image = new Uri("https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg"),
                 Stream = new Uri("https://online.hitfm.ua/HitFM_HD")
@@ -90,7 +104,6 @@ namespace OTTCreator.API
                 Type = "Радіостанції",
                 HasVideo = false,
                 IsLive = true,
-                IsFavorite = false,
                 CroppedImage = new Uri("https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg"),
                 Image = new Uri("https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg"),
                 Stream = new Uri("https://online.radioroks.ua/RadioROKS_HD")
@@ -103,7 +116,6 @@ namespace OTTCreator.API
                 Type = "Радіостанції",
                 HasVideo = false,
                 IsLive = true,
-                IsFavorite = false,
                 CroppedImage = new Uri("https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg"),
                 Image = new Uri("https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg"),
                 Stream = new Uri("https://online.hitfm.ua/HitFM_HD")
@@ -116,12 +128,10 @@ namespace OTTCreator.API
                 Type = "Радіостанції",
                 HasVideo = true,
                 IsLive = false,
-                IsFavorite = false,
                 CroppedImage = new Uri("https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg"),
                 Image = new Uri("https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg"),
                 Stream = new Uri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
             }
         );
-        }
     }
 }

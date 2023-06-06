@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
+using Microsoft.Extensions.Configuration;
 using OTTCreator.Client.Models;
 
 namespace OTTCreator.Client.Services
@@ -32,9 +33,11 @@ namespace OTTCreator.Client.Services
 
         public async Task<List<ContentItem>> GetContentItemsAsync()
         {
+            var apikey = await SecureStorage.Default.GetAsync("APIKey");
+            var code = await SecureStorage.Default.GetAsync("Code");
             var contentItems = new List<ContentItem>();
 
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/contentitems", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/contentitems/{apikey}/{code}", string.Empty));
             try
             {
                 var response = await client.GetAsync(uri);
@@ -54,9 +57,11 @@ namespace OTTCreator.Client.Services
 
         public async Task<List<ContentItem>> GetContentItemsAsync(string type, string category)
         {
+            var apikey = await SecureStorage.Default.GetAsync("APIKey");
+            var code = await SecureStorage.Default.GetAsync("Code");
             var contentItems = new List<ContentItem>();
 
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/{type}/{category}/contentitems", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/{type}/{category}/contentitems/{apikey}/{code}", string.Empty));
             try
             {
                 var response = await client.GetAsync(uri);
@@ -78,7 +83,10 @@ namespace OTTCreator.Client.Services
         {
             var contentItem = new ContentItem();
 
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/contentitems/{id}", string.Empty));
+            var apikey = await SecureStorage.Default.GetAsync("APIKey");
+            var code = await SecureStorage.Default.GetAsync("Code");
+
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/contentitems/{id}/{apikey}/{code}", string.Empty));
             try
             {
                 var response = await client.GetAsync(uri);
@@ -98,9 +106,12 @@ namespace OTTCreator.Client.Services
 
         public async Task<List<string>> GetTypesAsync()
         {
+            var apikey = await SecureStorage.Default.GetAsync("APIKey");
+            var code = await SecureStorage.Default.GetAsync("Code");
+
             var contentItemsStrings = new List<string>();
 
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/types", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/types/{apikey}/{code}", string.Empty));
             try
             {
                 var response = await client.GetAsync(uri);
@@ -120,9 +131,12 @@ namespace OTTCreator.Client.Services
 
         public async Task<List<string>> GetCategoriesAsync(string type)
         {
+            var apikey = await SecureStorage.Default.GetAsync("APIKey");
+            var code = await SecureStorage.Default.GetAsync("Code");
+
             var contentItemsStrings = new List<string>();
 
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/{type}/categories", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/{type}/categories/{apikey}/{code}", string.Empty));
             try
             {
                 var response = await client.GetAsync(uri);
@@ -142,9 +156,12 @@ namespace OTTCreator.Client.Services
 
         public async Task<List<ContentItem>> GetFavoritesAsync(string type)
         {
+            var apikey = await SecureStorage.Default.GetAsync("APIKey");
+            var code = await SecureStorage.Default.GetAsync("Code");
+
             var contentItems = new List<ContentItem>();
 
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/{type}/contentitems/favorites/", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/{type}/contentitems/favorites/{apikey}/{code}", string.Empty));
             try
             {
                 var response = await client.GetAsync(uri);
@@ -164,9 +181,12 @@ namespace OTTCreator.Client.Services
 
         public async Task<List<ContentItem>> GetRecommendedAsync(string type)
         {
+            var apikey = await SecureStorage.Default.GetAsync("APIKey");
+            var code = await SecureStorage.Default.GetAsync("Code");
+
             var contentItems = new List<ContentItem>();
 
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/{type}/contentitems/recommended/", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/{type}/contentitems/recommended/{apikey}/{code}", string.Empty));
             try
             {
                 var response = await client.GetAsync(uri);
@@ -186,11 +206,14 @@ namespace OTTCreator.Client.Services
 
         public async Task SaveContentItemFavoriteAsync(int id)
         {
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/contentitems/{id}/favorite", string.Empty));
+            var apikey = await SecureStorage.Default.GetAsync("APIKey");
+            var code = await SecureStorage.Default.GetAsync("Code");
+
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/contentitems/{id}/favorite/{apikey}/{code}", string.Empty));
 
             try
             {
-                var json = JsonSerializer.Serialize<int>(id, serializerOptions);
+                var json = JsonSerializer.Serialize(id, serializerOptions);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 var response = await client.PutAsync(uri, content);
@@ -201,6 +224,29 @@ namespace OTTCreator.Client.Services
             catch (Exception ex)
             {
                 Debug.WriteLine(@"\tError {0}", ex.Message);
+            }
+        }
+
+        public async Task<bool> ActivateAsync(string apikey, string code)
+        {
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/activate/{apikey}/{code}", string.Empty));
+
+            try
+            {
+                var json = JsonSerializer.Serialize<string>(code, serializerOptions);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PutAsync(uri, content);
+
+                if (response.IsSuccessStatusCode)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"\tError {0}", ex.Message);
+                return false;
             }
         }
     }

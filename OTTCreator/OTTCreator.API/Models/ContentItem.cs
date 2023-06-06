@@ -1,7 +1,10 @@
-﻿namespace OTTCreator.Client.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace OTTCreator.API.Models;
 
 public class ContentItem
 {
+    [Key]
     public int ID { get; set; }
     public string Name { get; set; }
     public string Category { get; set; }

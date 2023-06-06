@@ -11,6 +11,7 @@ namespace OTTCreator.Web.Areas.Identity.Data;
 // Add profile data for application users by adding properties to the User class
 public class User : IdentityUser
 {
-    public Dictionary<string, Guid> DevicesAndCodes { get; set; }
-    public int ActiveDevices { get; set; }
+    public Dictionary<Guid, bool> CodesAndUse { get; set; }
+    public List<int> FavoriteContentItemsIDs { get; set; }
+    public List<int> RecommendedContentItemsIDs { get; set; }
 }

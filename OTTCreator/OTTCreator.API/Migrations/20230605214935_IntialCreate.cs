@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace OTTCreator.Web.Migrations
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace OTTCreator.API.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class IntialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,8 +32,9 @@ namespace OTTCreator.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DevicesAndCodes = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ActiveDevices = table.Column<int>(type: "int", nullable: false),
+                    CodesAndUse = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FavoriteContentItemsIDs = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RecommendedContentItemsIDs = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -50,6 +53,26 @@ namespace OTTCreator.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ContentItems",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CroppedImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Stream = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HasVideo = table.Column<bool>(type: "bit", nullable: false),
+                    IsLive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContentItems", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -98,8 +121,8 @@ namespace OTTCreator.Web.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -143,8 +166,8 @@ namespace OTTCreator.Web.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -156,6 +179,21 @@ namespace OTTCreator.Web.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "ContentItems",
+                columns: new[] { "ID", "Category", "CroppedImage", "HasVideo", "Image", "IsLive", "Name", "Stream", "Type" },
+                values: new object[,]
+                {
+                    { 1, "Test category A", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "Test content 1", "https://bloomberg.com/media-manifest/streams/eu.m3u8", "Телеканали" },
+                    { 2, "Test category A", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", true, "Test content 2", "https://i.mjh.nz/PlutoTV/5a6b92f6e22a617379789618-alt.m3u8", "Телеканали" },
+                    { 3, "Test category B", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", true, "Test content 3", "https://ythls.onrender.com/channel/UCH9H_b9oJtSHBovh94yB5HA.m3u8", "Телеканали" },
+                    { 4, "Test category B", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", true, "Test content 4", "https://ythls.onrender.com/channel/UCMEiyV8N2J93GdPNltPYM6w.m3u8", "Телеканали" },
+                    { 5, "Test category C", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", false, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", true, "Test content 5", "https://online.hitfm.ua/HitFM_HD", "Радіостанції" },
+                    { 6, "Test category C", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", false, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", true, "Test content 6", "https://online.radioroks.ua/RadioROKS_HD", "Радіостанції" },
+                    { 7, "Test category D", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", false, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", true, "Test content 7", "https://online.hitfm.ua/HitFM_HD", "Радіостанції" },
+                    { 8, "Test category D", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", false, "Test content 8", "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "Радіостанції" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -215,6 +253,9 @@ namespace OTTCreator.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "ContentItems");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

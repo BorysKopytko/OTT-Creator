@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using OTTCreator.Web.Data;
+using OTTCreator.API.Models;
 
 #nullable disable
 
-namespace OTTCreator.Web.Migrations
+namespace OTTCreator.API.Migrations
 {
     [DbContext(typeof(ApplicationIdentityDbContext))]
-    partial class ApplicationIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230605214935_IntialCreate")]
+    partial class IntialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,12 +105,10 @@ namespace OTTCreator.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -144,12 +145,10 @@ namespace OTTCreator.Web.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -159,7 +158,148 @@ namespace OTTCreator.Web.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("OTTCreator.Web.Areas.Identity.Data.User", b =>
+            modelBuilder.Entity("OTTCreator.API.Models.ContentItem", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CroppedImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("HasVideo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsLive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Stream")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ContentItems");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Category = "Test category A",
+                            CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            HasVideo = true,
+                            Image = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            IsLive = true,
+                            Name = "Test content 1",
+                            Stream = "https://bloomberg.com/media-manifest/streams/eu.m3u8",
+                            Type = "Телеканали"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Category = "Test category A",
+                            CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            HasVideo = true,
+                            Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
+                            IsLive = true,
+                            Name = "Test content 2",
+                            Stream = "https://i.mjh.nz/PlutoTV/5a6b92f6e22a617379789618-alt.m3u8",
+                            Type = "Телеканали"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Category = "Test category B",
+                            CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            HasVideo = true,
+                            Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
+                            IsLive = true,
+                            Name = "Test content 3",
+                            Stream = "https://ythls.onrender.com/channel/UCH9H_b9oJtSHBovh94yB5HA.m3u8",
+                            Type = "Телеканали"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            Category = "Test category B",
+                            CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            HasVideo = true,
+                            Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
+                            IsLive = true,
+                            Name = "Test content 4",
+                            Stream = "https://ythls.onrender.com/channel/UCMEiyV8N2J93GdPNltPYM6w.m3u8",
+                            Type = "Телеканали"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            Category = "Test category C",
+                            CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            HasVideo = false,
+                            Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
+                            IsLive = true,
+                            Name = "Test content 5",
+                            Stream = "https://online.hitfm.ua/HitFM_HD",
+                            Type = "Радіостанції"
+                        },
+                        new
+                        {
+                            ID = 6,
+                            Category = "Test category C",
+                            CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            HasVideo = false,
+                            Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
+                            IsLive = true,
+                            Name = "Test content 6",
+                            Stream = "https://online.radioroks.ua/RadioROKS_HD",
+                            Type = "Радіостанції"
+                        },
+                        new
+                        {
+                            ID = 7,
+                            Category = "Test category D",
+                            CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            HasVideo = false,
+                            Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
+                            IsLive = true,
+                            Name = "Test content 7",
+                            Stream = "https://online.hitfm.ua/HitFM_HD",
+                            Type = "Радіостанції"
+                        },
+                        new
+                        {
+                            ID = 8,
+                            Category = "Test category D",
+                            CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            HasVideo = true,
+                            Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
+                            IsLive = false,
+                            Name = "Test content 8",
+                            Stream = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                            Type = "Радіостанції"
+                        });
+                });
+
+            modelBuilder.Entity("OTTCreator.API.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -167,15 +307,12 @@ namespace OTTCreator.Web.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("ActiveDevices")
-                        .HasColumnType("int");
+                    b.Property<string>("CodesAndUse")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DevicesAndCodes")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -184,6 +321,10 @@ namespace OTTCreator.Web.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FavoriteContentItemsIDs")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -207,6 +348,10 @@ namespace OTTCreator.Web.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("RecommendedContentItemsIDs")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -242,7 +387,7 @@ namespace OTTCreator.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("OTTCreator.Web.Areas.Identity.Data.User", null)
+                    b.HasOne("OTTCreator.API.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -251,7 +396,7 @@ namespace OTTCreator.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("OTTCreator.Web.Areas.Identity.Data.User", null)
+                    b.HasOne("OTTCreator.API.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -266,7 +411,7 @@ namespace OTTCreator.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OTTCreator.Web.Areas.Identity.Data.User", null)
+                    b.HasOne("OTTCreator.API.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -275,7 +420,7 @@ namespace OTTCreator.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("OTTCreator.Web.Areas.Identity.Data.User", null)
+                    b.HasOne("OTTCreator.API.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

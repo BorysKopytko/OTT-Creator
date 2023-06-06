@@ -115,16 +115,16 @@ namespace OTTCreator.Web.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-                user.DevicesAndCodes = new Dictionary<string, Guid>
+                user.CodesAndUse = new Dictionary<Guid, bool>
                 {
-                    { "Пристрій 1", Guid.NewGuid() },
-                    { "Пристрій 2", Guid.NewGuid() },
-                    { "Пристрій 3", Guid.NewGuid() },
-                    { "Пристрій 4", Guid.NewGuid() },
-                    { "Пристрій 5", Guid.NewGuid() }
+                    { Guid.NewGuid(), false },
+                    { Guid.NewGuid(), false },
+                    { Guid.NewGuid(), false },
+                    { Guid.NewGuid(), false },
+                    { Guid.NewGuid(), false }
                 };
-
-
+                user.FavoriteContentItemsIDs = new List<int>();
+                user.RecommendedContentItemsIDs = new List<int>();
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
