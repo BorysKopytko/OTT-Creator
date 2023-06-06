@@ -78,7 +78,7 @@ namespace OTTCreator.Web.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "Електронна пошта")]
             public string Email { get; set; }
 
             /// <summary>
@@ -88,7 +88,7 @@ namespace OTTCreator.Web.Areas.Identity.Pages.Account
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Пароль")]
             public string Password { get; set; }
 
             /// <summary>
@@ -96,8 +96,8 @@ namespace OTTCreator.Web.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Підтвердьте пароль")]
+            [Compare("Password", ErrorMessage = "Пароль та підтвердження пароля не однакові.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -142,8 +142,8 @@ namespace OTTCreator.Web.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Підтвердьте вашу електронну пошту",
+                        $"Будь ласка, підтвердьте ваш обліковий запис <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>натиснувши тут</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -173,9 +173,9 @@ namespace OTTCreator.Web.Areas.Identity.Pages.Account
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(User)}'. " +
-                    $"Ensure that '{nameof(User)}' is not an abstract class and has a parameterless constructor, or alternatively " +
-                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
+                throw new InvalidOperationException($"Не можу створити екземпляр '{nameof(User)}'. " +
+                    $"Впевніться, що'{nameof(User)}' не є абстрактним класом і є конструктором без параметрів або, альтернативно," +
+                    $"перевантажте реєстраційну сторінку в /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
 
@@ -183,7 +183,7 @@ namespace OTTCreator.Web.Areas.Identity.Pages.Account
         {
             if (!_userManager.SupportsUserEmail)
             {
-                throw new NotSupportedException("The default UI requires a user store with email support.");
+                throw new NotSupportedException("Стандартний інтерфейс користрувача вимагає сховища користувачів з підтримкою електронних пошт.");
             }
             return (IUserEmailStore<User>)_userStore;
         }
