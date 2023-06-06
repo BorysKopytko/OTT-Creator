@@ -2,7 +2,7 @@
 @inject SignInManager<User> signInManager
 @model IndexModel
 @{
-    ViewData["Title"] = "Пристрої та коди";
+    ViewData["Title"] = "Коди та використовування";
     ViewData["ActivePage"] = ManageNavPages.Index;
 
     var user = await signInManager.UserManager.GetUserAsync(User);
@@ -15,8 +15,8 @@
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">Пристрій</th>
                         <th scope="col">Код</th>
+                        <th scope="col">Використовується</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,7 +24,14 @@
                     {
                         <tr>
                             <td>@deviceAndCode.Key</td>
-                            <td>@deviceAndCode.Value</td>
+                            @if (@deviceAndCode.Value == true)
+                            {
+                                <td>Так</td>
+                            }
+                            else
+                            {
+                                <td>Ні</td>
+                            }
                         </tr>
                     }
                 </tbody>
@@ -36,5 +43,3 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-
-
