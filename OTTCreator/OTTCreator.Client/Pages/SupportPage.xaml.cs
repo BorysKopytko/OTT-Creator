@@ -24,8 +24,6 @@ public partial class SupportPage : ContentPage
         if (result)
         {
             SecureStorage.Default.Remove("Code");
-
-            Application.Current.Quit();
         }
     }
 }

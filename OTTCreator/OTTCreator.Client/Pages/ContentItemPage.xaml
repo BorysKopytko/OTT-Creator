@@ -53,30 +53,36 @@
         </HorizontalStackLayout>
         <FlexLayout x:Name="ActivationScreen" 
                     Background="Black" 
-                    ZIndex="2" 
+                    ZIndex="3" 
                     AlignContent="Center" 
                     AlignItems="Center" 
                     JustifyContent="Center">
             <VerticalStackLayout VerticalOptions="Center"
-                                 HorizontalOptions="Center"
-                                 Background="Black">
+                                 HorizontalOptions="Center">
                 <Label x:Name="CodeInstructionPart1Label"
                        Text="Активація"
                        FontSize="Large"
-                       Padding="10"/>
+                       Padding="10"
+                       TextColor="White"/>
                 <Label x:Name="CodeInstructionPart2Label"
-                   Text="1. Перейдіть за посиланням"/>
+                       Text="1. Перейдіть за посиланням"
+                       Padding="10"
+                       TextColor="White"/>
                 <Label x:Name="CodeInstructionLink"
-                       Text="https://localhost:7002/"/>
+                       Text="https://localhost:7002/"
+                       Padding="10"
+                       TextColor="White"/>
                 <Label x:Name="CodeInstructionPart3Label"
-                       Text="та ввійдіть в / зареєструйте обліковий запис, де скопіюйте вільний код.&#xA;2. Введіть його в поле, розташоване під інструкцією.&#xA;3. Натисніть кнопку активації - додаток завершить роботу.&#xA;4. Запустіть додаток.&#xA;5. Насолоджуйтесь вмістом :)"/>
+                       Text="та ввійдіть в / зареєструйте обліковий запис, де скопіюйте вільний код.&#xA;2. Введіть його в поле, розташоване під інструкцією.&#xA;3. Натисніть кнопку активації.&#xA;4. Завершіть роботу додатка.&#xA;5. Запустіть додаток.&#xA;6. Насолоджуйтесь вмістом :)"
+                       Padding="10"
+                       TextColor="White"/>
                 <Entry x:Name="CodeEntry" 
                        Placeholder="Введіть код"
+                       TextColor="White"
                        Margin="10"/>
                 <Button x:Name="SendCodeButton" 
                         Text="Активувати"
-                        Clicked="SendButton_Clicked"
-                        />
+                        Clicked="SendButton_Clicked"/>
             </VerticalStackLayout>
         </FlexLayout>
     </Grid>

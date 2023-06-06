@@ -218,8 +218,6 @@ public partial class ContentItemPage : ContentPage
         if(result)
         {
             await SecureStorage.Default.SetAsync("Code", CodeEntry.Text);
-
-            Application.Current.Quit();
         }
             
     }
