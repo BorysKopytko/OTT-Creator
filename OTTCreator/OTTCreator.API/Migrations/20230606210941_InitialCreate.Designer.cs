@@ -12,7 +12,7 @@ using OTTCreator.API.Models;
 namespace OTTCreator.API.Migrations
 {
     [DbContext(typeof(ApplicationIdentityDbContext))]
-    [Migration("20230606191813_InitialCreate")]
+    [Migration("20230606210941_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -181,9 +181,6 @@ namespace OTTCreator.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsLive")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -208,7 +205,6 @@ namespace OTTCreator.API.Migrations
                             CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
                             HasVideo = true,
                             Image = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
-                            IsLive = true,
                             Name = "Test content 1",
                             Stream = "https://bloomberg.com/media-manifest/streams/eu.m3u8",
                             Type = "Телеканали"
@@ -220,7 +216,6 @@ namespace OTTCreator.API.Migrations
                             CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
                             HasVideo = true,
                             Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
-                            IsLive = true,
                             Name = "Test content 2",
                             Stream = "https://i.mjh.nz/PlutoTV/5a6b92f6e22a617379789618-alt.m3u8",
                             Type = "Телеканали"
@@ -232,7 +227,6 @@ namespace OTTCreator.API.Migrations
                             CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
                             HasVideo = true,
                             Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
-                            IsLive = true,
                             Name = "Test content 3",
                             Stream = "https://ythls.onrender.com/channel/UCH9H_b9oJtSHBovh94yB5HA.m3u8",
                             Type = "Телеканали"
@@ -244,7 +238,6 @@ namespace OTTCreator.API.Migrations
                             CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
                             HasVideo = true,
                             Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
-                            IsLive = true,
                             Name = "Test content 4",
                             Stream = "https://ythls.onrender.com/channel/UCMEiyV8N2J93GdPNltPYM6w.m3u8",
                             Type = "Телеканали"
@@ -256,7 +249,6 @@ namespace OTTCreator.API.Migrations
                             CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
                             HasVideo = false,
                             Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
-                            IsLive = true,
                             Name = "Test content 5",
                             Stream = "https://online.hitfm.ua/HitFM_HD",
                             Type = "Радіостанції"
@@ -268,7 +260,6 @@ namespace OTTCreator.API.Migrations
                             CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
                             HasVideo = false,
                             Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
-                            IsLive = true,
                             Name = "Test content 6",
                             Stream = "https://online.radioroks.ua/RadioROKS_HD",
                             Type = "Радіостанції"
@@ -280,7 +271,6 @@ namespace OTTCreator.API.Migrations
                             CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
                             HasVideo = false,
                             Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
-                            IsLive = true,
                             Name = "Test content 7",
                             Stream = "https://online.hitfm.ua/HitFM_HD",
                             Type = "Радіостанції"
@@ -292,7 +282,6 @@ namespace OTTCreator.API.Migrations
                             CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
                             HasVideo = true,
                             Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
-                            IsLive = false,
                             Name = "Test content 8",
                             Stream = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
                             Type = "Радіостанції"

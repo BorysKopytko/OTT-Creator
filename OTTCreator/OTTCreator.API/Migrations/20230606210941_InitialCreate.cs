@@ -66,8 +66,7 @@ namespace OTTCreator.API.Migrations
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CroppedImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Stream = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    HasVideo = table.Column<bool>(type: "bit", nullable: false),
-                    IsLive = table.Column<bool>(type: "bit", nullable: false)
+                    HasVideo = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -182,17 +181,17 @@ namespace OTTCreator.API.Migrations
 
             migrationBuilder.InsertData(
                 table: "ContentItems",
-                columns: new[] { "ID", "Category", "CroppedImage", "HasVideo", "Image", "IsLive", "Name", "Stream", "Type" },
+                columns: new[] { "ID", "Category", "CroppedImage", "HasVideo", "Image", "Name", "Stream", "Type" },
                 values: new object[,]
                 {
-                    { 1, "Test category A", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "Test content 1", "https://bloomberg.com/media-manifest/streams/eu.m3u8", "Телеканали" },
-                    { 2, "Test category A", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", true, "Test content 2", "https://i.mjh.nz/PlutoTV/5a6b92f6e22a617379789618-alt.m3u8", "Телеканали" },
-                    { 3, "Test category B", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", true, "Test content 3", "https://ythls.onrender.com/channel/UCH9H_b9oJtSHBovh94yB5HA.m3u8", "Телеканали" },
-                    { 4, "Test category B", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", true, "Test content 4", "https://ythls.onrender.com/channel/UCMEiyV8N2J93GdPNltPYM6w.m3u8", "Телеканали" },
-                    { 5, "Test category C", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", false, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", true, "Test content 5", "https://online.hitfm.ua/HitFM_HD", "Радіостанції" },
-                    { 6, "Test category C", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", false, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", true, "Test content 6", "https://online.radioroks.ua/RadioROKS_HD", "Радіостанції" },
-                    { 7, "Test category D", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", false, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", true, "Test content 7", "https://online.hitfm.ua/HitFM_HD", "Радіостанції" },
-                    { 8, "Test category D", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", false, "Test content 8", "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "Радіостанції" }
+                    { 1, "Test category A", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", "Test content 1", "https://bloomberg.com/media-manifest/streams/eu.m3u8", "Телеканали" },
+                    { 2, "Test category A", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", "Test content 2", "https://i.mjh.nz/PlutoTV/5a6b92f6e22a617379789618-alt.m3u8", "Телеканали" },
+                    { 3, "Test category B", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", "Test content 3", "https://ythls.onrender.com/channel/UCH9H_b9oJtSHBovh94yB5HA.m3u8", "Телеканали" },
+                    { 4, "Test category B", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", "Test content 4", "https://ythls.onrender.com/channel/UCMEiyV8N2J93GdPNltPYM6w.m3u8", "Телеканали" },
+                    { 5, "Test category C", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", false, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", "Test content 5", "https://online.hitfm.ua/HitFM_HD", "Радіостанції" },
+                    { 6, "Test category C", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", false, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", "Test content 6", "https://online.radioroks.ua/RadioROKS_HD", "Радіостанції" },
+                    { 7, "Test category D", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", false, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", "Test content 7", "https://online.hitfm.ua/HitFM_HD", "Радіостанції" },
+                    { 8, "Test category D", "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg", true, "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg", "Test content 8", "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "Радіостанції" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -13,5 +13,4 @@ public class ContentItem
     public Uri CroppedImage { get; set; }
     public Uri Stream { get; set; }
     public bool HasVideo { get; set; }
-    public bool IsLive { get; set; }
 }

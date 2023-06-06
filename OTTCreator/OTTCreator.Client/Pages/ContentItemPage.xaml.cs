@@ -14,7 +14,7 @@ public partial class ContentItemPage : ContentPage
     private MediaSource currentStreamMediaSource;
     private Uri audioCoverImageBackup;
     private ContentService contentService;
-    
+
     public ContentItemPage()
     {
         InitializeComponent();
@@ -25,11 +25,12 @@ public partial class ContentItemPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        
+
         await SecureStorage.Default.SetAsync("APIKey", "954c2a72-4212-4005-922e-cc23dd937f60");
         //SecureStorage.Default.Remove("Code");
         var code = await SecureStorage.Default.GetAsync("Code");
-        if (code != null) {
+        if (code != null)
+        {
             ActivationScreen.IsVisible = false;
 
             var currentID = await SecureStorage.Default.GetAsync("CurrentID");
@@ -50,16 +51,8 @@ public partial class ContentItemPage : ContentPage
             {
                 ContentItemMediaElement.Source = currentStream;
 
-                if (!currentItem.IsLive)
-                {
-                    CustomPlaybackControls.IsVisible = false;
-                    ContentItemMediaElement.ShouldShowPlaybackControls = true;
-                }
-                else
-                {
-                    ContentItemMediaElement.ShouldShowPlaybackControls = false;
-                    CustomPlaybackControls.IsVisible = true;
-                }
+                ContentItemMediaElement.ShouldShowPlaybackControls = false;
+                CustomPlaybackControls.IsVisible = true;
 
                 if (!currentItem.HasVideo)
                 {
@@ -97,7 +90,8 @@ public partial class ContentItemPage : ContentPage
 
             AudioCoverImage.Source = audioCoverImageBackup;
         }
-        else if (code == null || ContentItemMediaElement.Source.ToString().Replace("Uri: ", "") == "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
+
+        if (ContentItemMediaElement.Source.ToString().Replace("Uri: ", "") == "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
         {
             ContentItemMediaElement.ShouldAutoPlay = false;
             ContentItemMediaElement.ShouldShowPlaybackControls = false;
@@ -215,10 +209,10 @@ public partial class ContentItemPage : ContentPage
     {
         var apikey = await SecureStorage.Default.GetAsync("APIKey");
         var result = await contentService.ActivateAsync(true, apikey, CodeEntry.Text);
-        if(result)
+        if (result)
         {
             await SecureStorage.Default.SetAsync("Code", CodeEntry.Text);
         }
-            
+
     }
 }
