@@ -12,8 +12,8 @@ using OTTCreator.API.Models;
 namespace OTTCreator.API.Migrations
 {
     [DbContext(typeof(ApplicationIdentityDbContext))]
-    [Migration("20230605214935_IntialCreate")]
-    partial class IntialCreate
+    [Migration("20230606191813_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -348,10 +348,6 @@ namespace OTTCreator.API.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("RecommendedContentItemsIDs")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");

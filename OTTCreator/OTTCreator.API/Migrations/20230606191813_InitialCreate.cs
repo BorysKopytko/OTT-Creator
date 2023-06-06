@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OTTCreator.API.Migrations
 {
     /// <inheritdoc />
-    public partial class IntialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,7 +34,6 @@ namespace OTTCreator.API.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CodesAndUse = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FavoriteContentItemsIDs = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RecommendedContentItemsIDs = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

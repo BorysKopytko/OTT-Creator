@@ -37,12 +37,6 @@ public class ApplicationIdentityDbContext : IdentityDbContext<Areas.Identity.Dat
             v => JsonConvert.SerializeObject(v),
             v => JsonConvert.DeserializeObject<List<int>>(v));
 
-        builder.Entity<Areas.Identity.Data.User>()
-        .Property(b => b.RecommendedContentItemsIDs)
-        .HasConversion(
-            v => JsonConvert.SerializeObject(v),
-            v => JsonConvert.DeserializeObject<List<int>>(v));
-
         builder.Entity<ContentItem>().HasData(
             new ContentItem
             {

@@ -96,17 +96,6 @@ app.MapGet("{type}/contentitems/favorites/{apikey}/{code}", async (string type, 
     return null;
 });
 
-app.MapGet("{type}/contentitems/recommended/{apikey}/{code}", async (string type, string apikey, string code, ApplicationIdentityDbContext db) =>
-{
-    if (apikey == APIKey)
-    {
-        var user = await GetUser(db, code);
-        if (user != null)
-            return await db.ContentItems.Where(c => c.Type == type && user.RecommendedContentItemsIDs.Contains(c.ID)).ToListAsync();
-    }
-    return null;
-});
-
 app.MapGet("contentitems/{id}/{apikey}/{code}", async (int id, string apikey, string code, ApplicationIdentityDbContext db) =>
 {
     if (apikey == APIKey)

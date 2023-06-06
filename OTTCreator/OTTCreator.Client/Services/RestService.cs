@@ -179,31 +179,6 @@ namespace OTTCreator.Client.Services
             return contentItems;
         }
 
-        public async Task<List<ContentItem>> GetRecommendedAsync(string type)
-        {
-            var apikey = await SecureStorage.Default.GetAsync("APIKey");
-            var code = await SecureStorage.Default.GetAsync("Code");
-
-            var contentItems = new List<ContentItem>();
-
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/{type}/contentitems/recommended/{apikey}/{code}", string.Empty));
-            try
-            {
-                var response = await client.GetAsync(uri);
-                if (response.IsSuccessStatusCode)
-                {
-                    var content = await response.Content.ReadAsStringAsync();
-                    contentItems = JsonSerializer.Deserialize<List<ContentItem>>(content, serializerOptions);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(@"\tError {0}", ex.Message);
-            }
-
-            return contentItems;
-        }
-
         public async Task SaveContentItemFavoriteAsync(int id)
         {
             var apikey = await SecureStorage.Default.GetAsync("APIKey");

@@ -34,18 +34,15 @@ namespace OTTCreator.Client
             foreach (var type in types)
             {
                 FavoriteContentFlyoutItem.Items.Add(new ShellContent() { Title = type, ContentTemplate = categoryPageDataTemplate });
-                RecommendedContentFlyoutItem.Items.Add(new ShellContent() { Title = type, ContentTemplate = categoryPageDataTemplate });
             }
 
-            var firstDefaultShellContentsCount = 3;
             foreach (var type in types)
             {
                 var UIType = new FlyoutItem() { Title = type };
                 var categories = await contentService.GetCategoriesAsync(type);
                 foreach (var category in categories)
                     UIType.Items.Add(new ShellContent() { Title = category, ContentTemplate = categoryPageDataTemplate });
-                Shell.Items.Insert(firstDefaultShellContentsCount, UIType);
-                firstDefaultShellContentsCount++;
+                Shell.Items.Add(UIType);
             }
         }
     }

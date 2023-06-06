@@ -124,7 +124,6 @@ namespace OTTCreator.Web.Areas.Identity.Pages.Account
                     { Guid.NewGuid(), false }
                 };
                 user.FavoriteContentItemsIDs = new List<int>();
-                user.RecommendedContentItemsIDs = new List<int>();
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

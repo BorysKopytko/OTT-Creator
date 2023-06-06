@@ -41,11 +41,6 @@ namespace OTTCreator.Client.Services
             return restService.GetFavoritesAsync(type);
         }
 
-        public Task<List<ContentItem>> GetRecommendedAsync(string type)
-        {
-            return restService.GetRecommendedAsync(type);
-        }
-
         public Task SaveContentItemFavoriteAsync(int id)
         {
             return restService.SaveContentItemFavoriteAsync(id);

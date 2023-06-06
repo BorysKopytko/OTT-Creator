@@ -35,8 +35,6 @@ public partial class CategoryPage : ContentPage
         List<ContentItem> contentItems = new List<ContentItem>();
         if (Shell.Current.CurrentItem.Title == "Улюблений вміст")
             contentItems = await contentService.GetFavoritesAsync(Shell.Current.CurrentItem.CurrentItem.Title);
-        else if (Shell.Current.CurrentItem.Title == "Рекомендований вміст")
-            contentItems = await contentService.GetRecommendedAsync(Shell.Current.CurrentItem.CurrentItem.Title);
         else
             contentItems = await contentService.GetContentItemsAsync(Shell.Current.CurrentItem.Title, Shell.Current.CurrentItem.CurrentItem.Title);
 
@@ -48,7 +46,7 @@ public partial class CategoryPage : ContentPage
             ContentItemList.Add(imageButton);
         }
 
-        if (Shell.Current.CurrentItem.Title != "Улюблений вміст" && Shell.Current.CurrentItem.Title != "Рекомендований вміст")
+        if (Shell.Current.CurrentItem.Title != "Улюблений вміст")
         {
             previousType = Shell.Current.CurrentItem.Title;
             previousCategory = Shell.Current.CurrentItem.CurrentItem.Title;
