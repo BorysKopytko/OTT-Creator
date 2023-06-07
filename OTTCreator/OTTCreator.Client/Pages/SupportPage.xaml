@@ -3,5 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OTTCreator.Client.Pages.SupportPage"
              Title="Підтримка">
+    <VerticalStackLayout Padding="10">
+        <Label Text="Код:" 
+               Padding="10"/>
+        <Label x:Name="CodeLabel"
+               Padding="10"/>
+        <Button x:Name="DeactivateButton"
+                Text="Деактивувати"
+                Clicked="DeactivateButton_Clicked"
+                Padding="10"/>
+    </VerticalStackLayout>
 </ContentPage>
     

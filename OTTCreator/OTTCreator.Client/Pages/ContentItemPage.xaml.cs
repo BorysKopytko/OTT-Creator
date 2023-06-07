@@ -1,29 +1,37 @@
 ﻿using CommunityToolkit.Maui.Views;
 using OTTCreator.Client.Models;
 using OTTCreator.Client.Services;
+using System.Windows.Input;
 
-namespace OTTCreator.Client.Pages
+namespace OTTCreator.Client.Pages;
+
+public partial class ContentItemPage : ContentPage
 {
-    public partial class ContentItemPage : ContentPage
+    private ContentItem currentItem;
+    private bool isCustomPlaybackControlsVisible;
+    private bool isContentItemPlaying;
+    private bool hasVideo;
+    private MediaSource currentStreamMediaSource;
+    private Uri audioCoverImageBackup;
+    private ContentService contentService;
+
+    public ContentItemPage()
     {
-        private ContentItem currentItem;
-        private bool isCustomPlaybackControlsVisible;
-        private bool isContentItemPlaying;
-        private bool hasVideo;
-        private MediaSource currentStreamMediaSource;
-        private Uri audioCoverImageBackup;
-        private ContentService contentService;
-        
-        public ContentItemPage()
-        {
-            InitializeComponent();
+        InitializeComponent();
 
-            contentService = new ContentService();
-        }
+        contentService = new ContentService();
+    }
 
-        protected override async void OnAppearing()
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        await SecureStorage.Default.SetAsync("APIKey", "954c2a72-4212-4005-922e-cc23dd937f60");
+        //SecureStorage.Default.Remove("Code");
+        var code = await SecureStorage.Default.GetAsync("Code");
+        if (code != null)
         {
-            base.OnAppearing();
+            ActivationScreen.IsVisible = false;
 
             var currentID = await SecureStorage.Default.GetAsync("CurrentID");
             if (currentID == null)
@@ -43,16 +51,8 @@ namespace OTTCreator.Client.Pages
             {
                 ContentItemMediaElement.Source = currentStream;
 
-                if (!currentItem.IsLive)
-                {
-                    CustomPlaybackControls.IsVisible = false;
-                    ContentItemMediaElement.ShouldShowPlaybackControls = true;
-                }
-                else
-                {
-                    ContentItemMediaElement.ShouldShowPlaybackControls = false;
-                    CustomPlaybackControls.IsVisible = true;
-                }
+                ContentItemMediaElement.ShouldShowPlaybackControls = false;
+                CustomPlaybackControls.IsVisible = true;
 
                 if (!currentItem.HasVideo)
                 {
@@ -87,113 +87,127 @@ namespace OTTCreator.Client.Pages
 
                 Title = currentItem.Name;
             }
-            
+
             AudioCoverImage.Source = audioCoverImageBackup;
         }
 
-        protected async override void OnDisappearing()
+        if (ContentItemMediaElement.Source.ToString().Replace("Uri: ", "") == "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
         {
-            base.OnDisappearing();
-
-            await SecureStorage.Default.SetAsync("CurrentVolume", ContentItemMediaElement.Volume.ToString());
-            if (hasVideo)
-                await SecureStorage.Default.SetAsync("CurrentAspect", ContentItemMediaElement.Aspect.ToString());
-            else
-                await SecureStorage.Default.SetAsync("CurrentAspect", AudioCoverImage.Aspect.ToString());
-
-
-            AudioCoverImage.Source = null;
+            ContentItemMediaElement.ShouldAutoPlay = false;
+            ContentItemMediaElement.ShouldShowPlaybackControls = false;
         }
+    }
 
-        private async void ContentItemMediaElement_MediaOpened(object sender, EventArgs e)
+    protected async override void OnDisappearing()
+    {
+        base.OnDisappearing();
+
+        await SecureStorage.Default.SetAsync("CurrentVolume", ContentItemMediaElement.Volume.ToString());
+        if (hasVideo)
+            await SecureStorage.Default.SetAsync("CurrentAspect", ContentItemMediaElement.Aspect.ToString());
+        else
+            await SecureStorage.Default.SetAsync("CurrentAspect", AudioCoverImage.Aspect.ToString());
+
+
+        AudioCoverImage.Source = null;
+    }
+
+    private async void ContentItemMediaElement_MediaOpened(object sender, EventArgs e)
+    {
+        isContentItemPlaying = true;
+        await CustomPlaybackControls.FadeTo(0, 500);
+        isCustomPlaybackControlsVisible = false;
+    }
+
+    private async void Grid_Tapped(object sender, EventArgs args)
+    {
+        if (isCustomPlaybackControlsVisible)
         {
-            isContentItemPlaying = true;
             await CustomPlaybackControls.FadeTo(0, 500);
             isCustomPlaybackControlsVisible = false;
+            AspectButton.IsEnabled = false;
+            VolumeDownButton.IsEnabled = false;
+            StopAndPlayButton.IsEnabled = false;
+            VolumeUpButton.IsEnabled = false;
+            FavoriteButton.IsEnabled = false;
         }
-
-        private async void Grid_Tapped(object sender, EventArgs args)
+        else
         {
-            if (isCustomPlaybackControlsVisible)
-            {
-                await CustomPlaybackControls.FadeTo(0, 500);
-                isCustomPlaybackControlsVisible = false;
-                AspectButton.IsEnabled = false;
-                VolumeDownButton.IsEnabled = false;
-                StopAndPlayButton.IsEnabled = false;
-                VolumeUpButton.IsEnabled = false;
-                FavoriteButton.IsEnabled = false;
-            }
+            AspectButton.IsEnabled = true;
+            VolumeDownButton.IsEnabled = true;
+            StopAndPlayButton.IsEnabled = true;
+            VolumeUpButton.IsEnabled = true;
+            FavoriteButton.IsEnabled = true;
+            await CustomPlaybackControls.FadeTo(1, 500);
+            isCustomPlaybackControlsVisible = true;
+        }
+    }
+
+    private void VolumeDownButton_Clicked(object sender, EventArgs e)
+    {
+        if (ContentItemMediaElement.Volume != 0.0)
+            ContentItemMediaElement.Volume = double.Round(double.Round(ContentItemMediaElement.Volume, 1) - double.Round(0.1, 1), 1);
+    }
+
+    private void StopAndPlayButton_Clicked(object sender, EventArgs e)
+    {
+        if (isContentItemPlaying)
+        {
+            ContentItemMediaElement.Stop();
+            currentStreamMediaSource = ContentItemMediaElement.Source;
+            ContentItemMediaElement.Source = "";
+            isContentItemPlaying = false;
+        }
+        else
+        {
+            ContentItemMediaElement.Source = currentStreamMediaSource;
+            ContentItemMediaElement.Play();
+            isContentItemPlaying = true;
+        }
+    }
+
+    private void VolumeUpButton_Clicked(object sender, EventArgs e)
+    {
+        if (ContentItemMediaElement.Volume != 1.0)
+            ContentItemMediaElement.Volume = double.Round(double.Round(ContentItemMediaElement.Volume, 1) + double.Round(0.1, 1), 1);
+    }
+
+    private void AspectButton_Clicked(object sender, EventArgs e)
+    {
+        if (hasVideo)
+        {
+            if (ContentItemMediaElement.Aspect == Aspect.AspectFit)
+                ContentItemMediaElement.Aspect = Aspect.AspectFill;
+            else if (ContentItemMediaElement.Aspect == Aspect.AspectFill)
+                ContentItemMediaElement.Aspect = Aspect.Fill;
+            else if (ContentItemMediaElement.Aspect == Aspect.Fill)
+                ContentItemMediaElement.Aspect = Aspect.Center;
             else
-            {
-                AspectButton.IsEnabled = true;
-                VolumeDownButton.IsEnabled = true;
-                StopAndPlayButton.IsEnabled = true;
-                VolumeUpButton.IsEnabled = true;
-                FavoriteButton.IsEnabled = true;
-                await CustomPlaybackControls.FadeTo(1, 500);
-                isCustomPlaybackControlsVisible = true;
-            }
+                ContentItemMediaElement.Aspect = Aspect.AspectFit;
         }
-
-        private void VolumeDownButton_Clicked(object sender, EventArgs e)
+        else
         {
-            if (ContentItemMediaElement.Volume != 0.0)
-                ContentItemMediaElement.Volume = double.Round(double.Round(ContentItemMediaElement.Volume, 1) - double.Round(0.1, 1), 1);
-        }
-
-        private void StopAndPlayButton_Clicked(object sender, EventArgs e)
-        {
-            if (isContentItemPlaying)
-            {
-                ContentItemMediaElement.Stop();
-                currentStreamMediaSource = ContentItemMediaElement.Source;
-                ContentItemMediaElement.Source = "";
-                isContentItemPlaying = false;
-            }
+            if (AudioCoverImage.Aspect == Aspect.AspectFit)
+                AudioCoverImage.Aspect = Aspect.AspectFill;
+            else if (AudioCoverImage.Aspect == Aspect.AspectFill)
+                AudioCoverImage.Aspect = Aspect.Fill;
+            else if (AudioCoverImage.Aspect == Aspect.Fill)
+                AudioCoverImage.Aspect = Aspect.Center;
             else
-            {
-                ContentItemMediaElement.Source = currentStreamMediaSource;
-                ContentItemMediaElement.Play();
-                isContentItemPlaying = true;
-            }
+                AudioCoverImage.Aspect = Aspect.AspectFit;
         }
+    }
 
-        private void VolumeUpButton_Clicked(object sender, EventArgs e)
-        {
-            if (ContentItemMediaElement.Volume != 1.0)
-                ContentItemMediaElement.Volume = double.Round(double.Round(ContentItemMediaElement.Volume, 1) + double.Round(0.1, 1), 1);
-        }
+    private async void FavoriteButton_Clicked(object sender, EventArgs e)
+    {
+        await contentService.SaveContentItemFavoriteAsync(currentItem.ID);
+    }
 
-        private void AspectButton_Clicked(object sender, EventArgs e)
-        {
-            if (hasVideo)
-            {
-                if (ContentItemMediaElement.Aspect == Aspect.AspectFit)
-                    ContentItemMediaElement.Aspect = Aspect.AspectFill;
-                else if (ContentItemMediaElement.Aspect == Aspect.AspectFill)
-                    ContentItemMediaElement.Aspect = Aspect.Fill;
-                else if (ContentItemMediaElement.Aspect == Aspect.Fill)
-                    ContentItemMediaElement.Aspect = Aspect.Center;
-                else
-                    ContentItemMediaElement.Aspect = Aspect.AspectFit;
-            }
-            else
-            {
-                if (AudioCoverImage.Aspect == Aspect.AspectFit)
-                    AudioCoverImage.Aspect = Aspect.AspectFill;
-                else if (AudioCoverImage.Aspect == Aspect.AspectFill)
-                    AudioCoverImage.Aspect = Aspect.Fill;
-                else if (AudioCoverImage.Aspect == Aspect.Fill)
-                    AudioCoverImage.Aspect = Aspect.Center;
-                else
-                    AudioCoverImage.Aspect = Aspect.AspectFit;
-            }
-        }
-
-        private async void FavoriteButton_Clicked(object sender, EventArgs e)
-        {
-            await contentService.SaveContentItemFavoriteAsync(currentItem.ID);
-        }
+    private async void SendButton_Clicked(object sender, EventArgs e)
+    {
+        var apikey = await SecureStorage.Default.GetAsync("APIKey");
+        var result = await contentService.ActivateAsync(true, apikey, CodeEntry.Text);
+        if (result)
+            await SecureStorage.Default.SetAsync("Code", CodeEntry.Text);
     }
 }

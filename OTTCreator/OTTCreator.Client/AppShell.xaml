@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="OTTCreator.Client.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:OTTCreator.Client"
-    xmlns:pages="clr-namespace:OTTCreator.Client.Pages"
-    Shell.FlyoutBehavior="Flyout"
-    x:Name="Shell">
+<Shell x:Class="OTTCreator.Client.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:OTTCreator.Client"
+       xmlns:pages="clr-namespace:OTTCreator.Client.Pages"
+       Shell.FlyoutBehavior="Flyout"
+       x:Name="Shell">
     <ShellContent
         Title="Поточне відтворення"
         ContentTemplate="{DataTemplate pages:ContentItemPage}"
@@ -14,9 +13,6 @@
     <FlyoutItem
         x:Name="FavoriteContentFlyoutItem"
         Title="Улюблений вміст"/>
-    <FlyoutItem
-        x:Name="RecommendedContentFlyoutItem"
-        Title="Рекомендований вміст"/>
     <ShellContent
         Title="Підтримка"
         ContentTemplate="{DataTemplate pages:SupportPage}"

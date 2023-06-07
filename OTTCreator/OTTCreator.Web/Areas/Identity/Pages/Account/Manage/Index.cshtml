@@ -1,0 +1,45 @@
+﻿@page
+@inject SignInManager<User> signInManager
+@model IndexModel
+@{
+    ViewData["Title"] = "Коди та використовування";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+
+    var user = await signInManager.UserManager.GetUserAsync(User);
+}
+
+<h3>@ViewData["Title"]</h3>
+<div class="row">
+    <div class="col-md-6">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Код</th>
+                        <th scope="col">Використовується</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var deviceAndCode in user.CodesAndUse)
+                    {
+                        <tr>
+                            <td>@deviceAndCode.Key</td>
+                            @if (@deviceAndCode.Value == true)
+                            {
+                                <td>Так</td>
+                            }
+                            else
+                            {
+                                <td>Ні</td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
