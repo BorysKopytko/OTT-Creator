@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace OTTCreator.API.Models;
+namespace OTTCreator.WebAPI.Models;
 
 public class User : IdentityUser
 {

@@ -11,9 +11,9 @@ namespace OTTCreator.Client.Services
             restService = new RestService();
         }
 
-        public Task<bool> ActivateAsync(bool activateOrDeactivate, string apikey, string code)
+        public Task<bool> ActivateAsync(bool activateOrDeactivate, string WebAPIkey, string code)
         {
-            return restService.ActivateAsync(activateOrDeactivate, apikey, code);
+            return restService.ActivateAsync(activateOrDeactivate, WebAPIkey, code);
         }
 
         public Task<List<ContentItem>> GetContentItemsAsync()

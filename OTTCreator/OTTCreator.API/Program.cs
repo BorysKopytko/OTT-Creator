@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using OTTCreator.API.Models;
+using OTTCreator.WebAPI.Models;
 
-var APIKey = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("APIKey").Value;
+var WebAPIKey = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("WebAPIKey").Value;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationIdentityDbContext>();
@@ -17,9 +17,9 @@ async Task<User> GetUserAsync(ApplicationIdentityDbContext db, string code)
     return user;
 }
 
-app.MapPut("activate/{activateOrDeactivate}/{apikey}/{code}", async (bool activateOrDeactivate, string apikey, string code, ApplicationIdentityDbContext db) =>
+app.MapPut("activate/{activateOrDeactivate}/{WebAPIkey}/{code}", async (bool activateOrDeactivate, string WebAPIkey, string code, ApplicationIdentityDbContext db) =>
 {
-    if (apikey == APIKey)
+    if (WebAPIkey == WebAPIKey)
     {
         var user = await GetUserAsync(db, code);
         if (user != null)
@@ -38,9 +38,9 @@ app.MapPut("activate/{activateOrDeactivate}/{apikey}/{code}", async (bool activa
     return Results.Unauthorized();
 });
 
-app.MapGet("contentitems/{apikey}/{code}", async (string apikey, string code, ApplicationIdentityDbContext db) =>
+app.MapGet("contentitems/{WebAPIkey}/{code}", async (string WebAPIkey, string code, ApplicationIdentityDbContext db) =>
 {
-    if (apikey == APIKey)
+    if (WebAPIkey == WebAPIKey)
     {
         var user = await GetUserAsync(db, code);
         if (user != null)
@@ -49,9 +49,9 @@ app.MapGet("contentitems/{apikey}/{code}", async (string apikey, string code, Ap
     return null;
 });
 
-app.MapGet("types/{apikey}/{code}", async (string apikey, string code, ApplicationIdentityDbContext db) =>
+app.MapGet("types/{WebAPIkey}/{code}", async (string WebAPIkey, string code, ApplicationIdentityDbContext db) =>
 {
-    if (apikey == APIKey)
+    if (WebAPIkey == WebAPIKey)
     {
         var user = await GetUserAsync(db, code);
         if (user != null)
@@ -62,9 +62,9 @@ app.MapGet("types/{apikey}/{code}", async (string apikey, string code, Applicati
     return null;
 });
 
-app.MapGet("{type}/categories/{apikey}/{code}", async (string type, string apikey, string code, ApplicationIdentityDbContext db) =>
+app.MapGet("{type}/categories/{WebAPIkey}/{code}", async (string type, string WebAPIkey, string code, ApplicationIdentityDbContext db) =>
 {
-    if (apikey == APIKey)
+    if (WebAPIkey == WebAPIKey)
     {
         var user = await GetUserAsync(db, code);
         if (user != null)
@@ -73,9 +73,9 @@ app.MapGet("{type}/categories/{apikey}/{code}", async (string type, string apike
     return null;
 });
 
-app.MapGet("{type}/{category}/contentitems/{apikey}/{code}", async (string type, string category, string apikey, string code, ApplicationIdentityDbContext db) =>
+app.MapGet("{type}/{category}/contentitems/{WebAPIkey}/{code}", async (string type, string category, string WebAPIkey, string code, ApplicationIdentityDbContext db) =>
 {
-    if (apikey == APIKey)
+    if (WebAPIkey == WebAPIKey)
     {
         var user = await GetUserAsync(db, code);
         if (user != null)
@@ -84,9 +84,9 @@ app.MapGet("{type}/{category}/contentitems/{apikey}/{code}", async (string type,
     return null;
 });
 
-app.MapGet("{type}/contentitems/favorites/{apikey}/{code}", async (string type, string apikey, string code, ApplicationIdentityDbContext db) =>
+app.MapGet("{type}/contentitems/favorites/{WebAPIkey}/{code}", async (string type, string WebAPIkey, string code, ApplicationIdentityDbContext db) =>
 {
-    if (apikey == APIKey)
+    if (WebAPIkey == WebAPIKey)
     {
         var user = await GetUserAsync(db, code);
         if (user != null)
@@ -95,9 +95,9 @@ app.MapGet("{type}/contentitems/favorites/{apikey}/{code}", async (string type, 
     return null;
 });
 
-app.MapGet("contentitems/{id}/{apikey}/{code}", async (int id, string apikey, string code, ApplicationIdentityDbContext db) =>
+app.MapGet("contentitems/{id}/{WebAPIkey}/{code}", async (int id, string WebAPIkey, string code, ApplicationIdentityDbContext db) =>
 {
-    if (apikey == APIKey)
+    if (WebAPIkey == WebAPIKey)
     {
         var user = await GetUserAsync(db, code);
         if (user != null)
@@ -110,9 +110,9 @@ app.MapGet("contentitems/{id}/{apikey}/{code}", async (int id, string apikey, st
     return Results.NotFound();
 });
 
-app.MapPut("contentitems/{id}/favorite/{apikey}/{code}", async (int id, string apikey, string code, ApplicationIdentityDbContext db) =>
+app.MapPut("contentitems/{id}/favorite/{WebAPIkey}/{code}", async (int id, string WebAPIkey, string code, ApplicationIdentityDbContext db) =>
 {
-    if (apikey == APIKey)
+    if (WebAPIkey == WebAPIKey)
     {
         var contentItem = await db.ContentItems.FindAsync(id);
         if (contentItem is null) return Results.NotFound();

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OTTCreator.API.Models;
+namespace OTTCreator.WebAPI.Models;
 
 public class ContentItem
 {

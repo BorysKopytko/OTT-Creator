@@ -26,7 +26,7 @@ public partial class ContentItemPage : ContentPage
     {
         base.OnAppearing();
 
-        await SecureStorage.Default.SetAsync("APIKey", "954c2a72-4212-4005-922e-cc23dd937f60");
+        await SecureStorage.Default.SetAsync("WebAPIKey", "954c2a72-4212-4005-922e-cc23dd937f60");
         //SecureStorage.Default.Remove("Code");
         var code = await SecureStorage.Default.GetAsync("Code");
         if (code != null)
@@ -205,8 +205,8 @@ public partial class ContentItemPage : ContentPage
 
     private async void SendButton_Clicked(object sender, EventArgs e)
     {
-        var apikey = await SecureStorage.Default.GetAsync("APIKey");
-        var result = await contentService.ActivateAsync(true, apikey, CodeEntry.Text);
+        var WebAPIkey = await SecureStorage.Default.GetAsync("WebAPIKey");
+        var result = await contentService.ActivateAsync(true, WebAPIkey, CodeEntry.Text);
         if (result)
             await SecureStorage.Default.SetAsync("Code", CodeEntry.Text);
     }

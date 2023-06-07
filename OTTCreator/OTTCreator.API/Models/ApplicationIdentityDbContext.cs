@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
-namespace OTTCreator.API.Models;
+namespace OTTCreator.WebAPI.Models;
 
 public class ApplicationIdentityDbContext : IdentityDbContext<User>
 {
