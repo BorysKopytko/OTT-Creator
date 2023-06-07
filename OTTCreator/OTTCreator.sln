@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OTTCreator.Configurator", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OTTCreator.API", "OTTCreator.API\OTTCreator.API.csproj", "{65748CC4-5EF6-403F-A9A3-0DEB2D931B54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTTCreator.Web", "OTTCreator.Web\OTTCreator.Web.csproj", "{5BADED1F-52E2-4C8E-8D16-65D322C1F352}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OTTCreator.Web", "OTTCreator.Web\OTTCreator.Web.csproj", "{5BADED1F-52E2-4C8E-8D16-65D322C1F352}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

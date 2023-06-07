@@ -1,8 +1,7 @@
-﻿using System.Diagnostics;
+﻿using OTTCreator.Client.Models;
+using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
-using Microsoft.Extensions.Configuration;
-using OTTCreator.Client.Models;
 
 namespace OTTCreator.Client.Services
 {
@@ -29,6 +28,29 @@ namespace OTTCreator.Client.Services
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 WriteIndented = true
             };
+        }
+
+        public async Task<bool> ActivateAsync(bool activateOrDeactivate, string apikey, string code)
+        {
+            var uri = new Uri(string.Format($"{Constants.APIUrl}/activate/{activateOrDeactivate}/{apikey}/{code}", string.Empty));
+
+            try
+            {
+                var json = JsonSerializer.Serialize<string>(code, serializerOptions);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PutAsync(uri, content);
+
+                if (response.IsSuccessStatusCode)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"\tError {0}", ex.Message);
+                return false;
+            }
         }
 
         public async Task<List<ContentItem>> GetContentItemsAsync()
@@ -199,29 +221,6 @@ namespace OTTCreator.Client.Services
             catch (Exception ex)
             {
                 Debug.WriteLine(@"\tError {0}", ex.Message);
-            }
-        }
-
-        public async Task<bool> ActivateAsync(bool activateOrDeactivate, string apikey, string code)
-        {
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/activate/{activateOrDeactivate}/{apikey}/{code}", string.Empty));
-
-            try
-            {
-                var json = JsonSerializer.Serialize<string>(code, serializerOptions);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                var response = await client.PutAsync(uri, content);
-
-                if (response.IsSuccessStatusCode)
-                    return true;
-                else
-                    return false;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(@"\tError {0}", ex.Message);
-                return false;
             }
         }
     }

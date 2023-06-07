@@ -112,8 +112,6 @@ public partial class ContentItemPage : ContentPage
         AudioCoverImage.Source = null;
     }
 
-    public ICommand OpenUrlCommand => new Command<string>(async (url) => await Launcher.OpenAsync(url));
-
     private async void ContentItemMediaElement_MediaOpened(object sender, EventArgs e)
     {
         isContentItemPlaying = true;
@@ -210,9 +208,6 @@ public partial class ContentItemPage : ContentPage
         var apikey = await SecureStorage.Default.GetAsync("APIKey");
         var result = await contentService.ActivateAsync(true, apikey, CodeEntry.Text);
         if (result)
-        {
             await SecureStorage.Default.SetAsync("Code", CodeEntry.Text);
-        }
-
     }
 }

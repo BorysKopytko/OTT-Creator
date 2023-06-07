@@ -2,36 +2,30 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using OTTCreator.API.Models;
-using OTTCreator.Web.Areas.Identity.Data;
 using User = OTTCreator.Web.Areas.Identity.Data.User;
 
 namespace OTTCreator.Web.Data;
 
-public class ApplicationIdentityDbContext : IdentityDbContext<Areas.Identity.Data.User>
+public class ApplicationIdentityDbContext : IdentityDbContext<User>
 {
-    public ApplicationIdentityDbContext(DbContextOptions<ApplicationIdentityDbContext> options)
-        : base(options)
-    {
-    }
+    public ApplicationIdentityDbContext(DbContextOptions<ApplicationIdentityDbContext> options) : base(options) { }
 
     public DbSet<ContentItem> ContentItems { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)=>
         optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=OTTCreator;Trusted_Connection=True;MultipleActiveResultSets=true");
-    }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
 
-        builder.Entity<Areas.Identity.Data.User>()
+        builder.Entity<User>()
         .Property(b => b.CodesAndUse)
         .HasConversion(
             v => JsonConvert.SerializeObject(v),
             v => JsonConvert.DeserializeObject<Dictionary<Guid, bool>>(v));
 
-        builder.Entity<Areas.Identity.Data.User>()
+        builder.Entity<User>()
         .Property(b => b.FavoriteContentItemsIDs)
         .HasConversion(
             v => JsonConvert.SerializeObject(v),

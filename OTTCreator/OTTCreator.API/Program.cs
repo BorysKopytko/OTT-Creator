@@ -4,13 +4,12 @@ using OTTCreator.API.Models;
 var APIKey = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("APIKey").Value;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddAuthentication();
 builder.Services.AddDbContext<ApplicationIdentityDbContext>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 var app = builder.Build();
 
-async Task<User> GetUser(ApplicationIdentityDbContext db, string code)
+async Task<User> GetUserAsync(ApplicationIdentityDbContext db, string code)
 {
     var codesAndUsersIds = db.Users.Select(x => new { Codes = x.CodesAndUse, Id = x.Id }).ToList();
     var userCodesAndId = codesAndUsersIds.Where(x => x.Codes.Keys.Contains(Guid.Parse(code))).ToList();
@@ -22,7 +21,7 @@ app.MapPut("activate/{activateOrDeactivate}/{apikey}/{code}", async (bool activa
 {
     if (apikey == APIKey)
     {
-        var user = await GetUser(db, code);
+        var user = await GetUserAsync(db, code);
         if (user != null)
         {
             if (user.CodesAndUse[Guid.Parse(code)] != activateOrDeactivate)
@@ -43,7 +42,7 @@ app.MapGet("contentitems/{apikey}/{code}", async (string apikey, string code, Ap
 {
     if (apikey == APIKey)
     {
-        var user = await GetUser(db, code);
+        var user = await GetUserAsync(db, code);
         if (user != null)
             return await db.ContentItems.ToListAsync();
     }
@@ -54,7 +53,7 @@ app.MapGet("types/{apikey}/{code}", async (string apikey, string code, Applicati
 {
     if (apikey == APIKey)
     {
-        var user = await GetUser(db, code);
+        var user = await GetUserAsync(db, code);
         if (user != null)
         {
             return Enumerable.Reverse(await db.ContentItems.Select(c => c.Type).Distinct().AsQueryable().ToListAsync());
@@ -67,7 +66,7 @@ app.MapGet("{type}/categories/{apikey}/{code}", async (string type, string apike
 {
     if (apikey == APIKey)
     {
-        var user = await GetUser(db, code);
+        var user = await GetUserAsync(db, code);
         if (user != null)
             return await db.ContentItems.Where(c => c.Type == type).Select(c => c.Category).Distinct().ToListAsync();
     }
@@ -78,7 +77,7 @@ app.MapGet("{type}/{category}/contentitems/{apikey}/{code}", async (string type,
 {
     if (apikey == APIKey)
     {
-        var user = await GetUser(db, code);
+        var user = await GetUserAsync(db, code);
         if (user != null)
             return await db.ContentItems.Where(c => c.Type == type && c.Category == category).ToListAsync();
     }
@@ -89,7 +88,7 @@ app.MapGet("{type}/contentitems/favorites/{apikey}/{code}", async (string type, 
 {
     if (apikey == APIKey)
     {
-        var user = await GetUser(db, code);
+        var user = await GetUserAsync(db, code);
         if (user != null)
             return await db.ContentItems.Where(c => c.Type == type && user.FavoriteContentItemsIDs.Contains(c.ID)).ToListAsync();
     }
@@ -100,7 +99,7 @@ app.MapGet("contentitems/{id}/{apikey}/{code}", async (int id, string apikey, st
 {
     if (apikey == APIKey)
     {
-        var user = await GetUser(db, code);
+        var user = await GetUserAsync(db, code);
         if (user != null)
         {
             var contentItem = await db.ContentItems.FindAsync(id);
@@ -117,7 +116,7 @@ app.MapPut("contentitems/{id}/favorite/{apikey}/{code}", async (int id, string a
     {
         var contentItem = await db.ContentItems.FindAsync(id);
         if (contentItem is null) return Results.NotFound();
-        var user = await GetUser(db, code);
+        var user = await GetUserAsync(db, code);
         if (user != null)
         {
             if (user.FavoriteContentItemsIDs.Contains(id))

@@ -2,46 +2,36 @@
 @using OTTCreator.Web.Data
 @inject WeatherForecastService ForecastService
 
-<PageTitle>Weather forecast</PageTitle>
+<PageTitle>Завантажити</PageTitle>
 
-<h1>Weather forecast</h1>
+<h1>Завантажити</h1>
 
-<p>This component demonstrates fetching data from a service.</p>
+<div class="container">
+    <div class="row ">
 
-@if (forecasts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+        <div class="col-md-6">
+            <div class="card">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
 
-@code {
-    private WeatherForecast[]? forecasts;
+                <div class="card-body">
+                    <h5 class="card-title">для Windows</h5>
+                    <p class="card-text">від 10 (версії 1809 і вище) до 11</p>
+                    <a href="#" class="btn btn-primary">Завантажити</a>
+                </div>
+            </div>
+        </div>
 
-    protected override async Task OnInitializedAsync()
-    {
-        forecasts = await ForecastService.GetForecastAsync(DateOnly.FromDateTime(DateTime.Now));
-    }
-}
+        <div class="col-md-6">
+            <div class="card">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
+
+                <div class="card-body">
+                    <h5 class="card-title">для Android</h5>
+                    <p class="card-text">від 5 до 13</p>
+                    <a href="#" class="btn btn-primary">Завантажити</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

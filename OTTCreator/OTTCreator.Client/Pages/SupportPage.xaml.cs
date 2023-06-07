@@ -5,6 +5,7 @@ namespace OTTCreator.Client.Pages;
 public partial class SupportPage : ContentPage
 {
     ContentService contentService;
+
 	public SupportPage()
 	{
 		InitializeComponent(); 
