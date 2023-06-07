@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using OTTCreator.WebApp.Areas.Identity.Data;
 using OTTCreator.WebApp.Models;
 using System.Diagnostics;
 
@@ -15,7 +17,7 @@ namespace OTTCreator.WebApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("User/Configure");
         }
 
         public IActionResult Privacy()
