@@ -24,7 +24,7 @@ app.MapPut("activate/{activateOrDeactivate}/{WebAPIkey}/{code}", async (bool act
         var user = await GetUserAsync(db, code);
         if (user != null)
         {
-            if (user.CodesAndUse[Guid.Parse(code)] != activateOrDeactivate)
+            if ((user.CodesAndUse[Guid.Parse(code)] != activateOrDeactivate))
             {
                 user.CodesAndUse[Guid.Parse(code)] = activateOrDeactivate;
                 db.Entry(user).State = EntityState.Modified;
@@ -43,7 +43,7 @@ app.MapGet("contentitems/{WebAPIkey}/{code}", async (string WebAPIkey, string co
     if (WebAPIkey == WebAPIKey)
     {
         var user = await GetUserAsync(db, code);
-        if (user != null)
+        if (user != null && user.IsAllowed)
             return await db.ContentItems.ToListAsync();
     }
     return null;
@@ -54,7 +54,7 @@ app.MapGet("types/{WebAPIkey}/{code}", async (string WebAPIkey, string code, App
     if (WebAPIkey == WebAPIKey)
     {
         var user = await GetUserAsync(db, code);
-        if (user != null)
+        if (user != null && user.IsAllowed)
         {
             return Enumerable.Reverse(await db.ContentItems.Select(c => c.Type).Distinct().AsQueryable().ToListAsync());
         }       
@@ -67,7 +67,7 @@ app.MapGet("{type}/categories/{WebAPIkey}/{code}", async (string type, string We
     if (WebAPIkey == WebAPIKey)
     {
         var user = await GetUserAsync(db, code);
-        if (user != null)
+        if (user != null && user.IsAllowed)
             return await db.ContentItems.Where(c => c.Type == type).Select(c => c.Category).Distinct().ToListAsync();
     }
     return null;
@@ -75,10 +75,10 @@ app.MapGet("{type}/categories/{WebAPIkey}/{code}", async (string type, string We
 
 app.MapGet("{type}/{category}/contentitems/{WebAPIkey}/{code}", async (string type, string category, string WebAPIkey, string code, ApplicationIdentityDbContext db) =>
 {
-    if (WebAPIkey == WebAPIKey)
+    if (WebAPIkey == WebAPIKey )
     {
         var user = await GetUserAsync(db, code);
-        if (user != null)
+        if (user != null && user.IsAllowed)
             return await db.ContentItems.Where(c => c.Type == type && c.Category == category).ToListAsync();
     }
     return null;
@@ -89,7 +89,7 @@ app.MapGet("{type}/contentitems/favorites/{WebAPIkey}/{code}", async (string typ
     if (WebAPIkey == WebAPIKey)
     {
         var user = await GetUserAsync(db, code);
-        if (user != null)
+        if (user != null && user.IsAllowed)
             return await db.ContentItems.Where(c => c.Type == type && user.FavoriteContentItemsIDs.Contains(c.ID)).ToListAsync();
     }
     return null;
@@ -100,7 +100,7 @@ app.MapGet("contentitems/{id}/{WebAPIkey}/{code}", async (int id, string WebAPIk
     if (WebAPIkey == WebAPIKey)
     {
         var user = await GetUserAsync(db, code);
-        if (user != null)
+        if (user != null && user.IsAllowed)
         {
             var contentItem = await db.ContentItems.FindAsync(id);
             if (contentItem != null)
@@ -117,7 +117,7 @@ app.MapPut("contentitems/{id}/favorite/{WebAPIkey}/{code}", async (int id, strin
         var contentItem = await db.ContentItems.FindAsync(id);
         if (contentItem is null) return Results.NotFound();
         var user = await GetUserAsync(db, code);
-        if (user != null)
+        if (user != null && user.IsAllowed)
         {
             if (user.FavoriteContentItemsIDs.Contains(id))
                 user.FavoriteContentItemsIDs.Remove(id);

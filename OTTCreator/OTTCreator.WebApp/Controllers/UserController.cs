@@ -75,18 +75,11 @@ namespace OTTCreator.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAdministrator(UserViewModel model)
         {
-            var administrator = new User();
-
-            administrator.Email = model.Email;
-            administrator.IsAllowed = true;
-
-            await repositoryWrapper.UserRepository.AddAsync(administrator);
-            await unitOfWork.Commit();
-
             User user = new User
             {
                 UserName = model.Email,
                 Email = model.Email,
+                IsAllowed = true,
                 FavoriteContentItemsIDs = new List<int>(),
                 CodesAndUse = new Dictionary<Guid, bool>
                 {
@@ -124,17 +117,11 @@ namespace OTTCreator.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser(UserViewModel model)
         {
-            var _user = new User();
-            _user.Email = model.Email;
-            _user.IsAllowed = true;
-
-            await repositoryWrapper.UserRepository.AddAsync(_user);
-            await unitOfWork.Commit();
-
             User user = new User
             {
                 UserName = model.Email,
                 Email = model.Email,
+                IsAllowed = true,
                 FavoriteContentItemsIDs = new List<int>(),
                 CodesAndUse = new Dictionary<Guid, bool>
                 {
@@ -191,9 +178,6 @@ namespace OTTCreator.WebApp.Controllers
 
             administrator.Email = model.Email;
 
-            await repositoryWrapper.UserRepository.UpdateAsync(administrator);
-            await unitOfWork.Commit();
-
             if (user != null)
             {
                 user.Email = model.Email;
@@ -243,9 +227,6 @@ namespace OTTCreator.WebApp.Controllers
             var _user = await repositoryWrapper.UserRepository.GetByIdAsync((id));
 
             _user.Email = model.Email;
-
-            await repositoryWrapper.UserRepository.UpdateAsync(_user);
-            await unitOfWork.Commit();
 
             if (user != null)
             {
@@ -334,8 +315,6 @@ namespace OTTCreator.WebApp.Controllers
                     IdentityResult result = await userManager.DeleteAsync(User);
                     if (result.Succeeded)
                     {
-                        await repositoryWrapper.UserRepository.DeleteAsync(administrator);
-                        await unitOfWork.Commit();
                         return RedirectToAction(nameof(Configure));
                     }
                 }
@@ -356,8 +335,6 @@ namespace OTTCreator.WebApp.Controllers
                     IdentityResult result = await userManager.DeleteAsync(User);
                     if (result.Succeeded)
                     {
-                        await repositoryWrapper.UserRepository.DeleteAsync(_user);
-                        await unitOfWork.Commit();
                         return RedirectToAction(nameof(Configure));
                     }
                 }
