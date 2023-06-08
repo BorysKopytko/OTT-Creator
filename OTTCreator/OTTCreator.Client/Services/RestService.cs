@@ -30,9 +30,9 @@ namespace OTTCreator.Client.Services
             };
         }
 
-        public async Task<bool> ActivateAsync(bool activateOrDeactivate, string apikey, string code)
+        public async Task<bool> ActivateAsync(bool activateOrDeactivate, string WebAPIkey, string code)
         {
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/activate/{activateOrDeactivate}/{apikey}/{code}", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.WebAPIUrl}/activate/{activateOrDeactivate}/{WebAPIkey}/{code}", string.Empty));
 
             try
             {
@@ -55,11 +55,11 @@ namespace OTTCreator.Client.Services
 
         public async Task<List<ContentItem>> GetContentItemsAsync()
         {
-            var apikey = await SecureStorage.Default.GetAsync("APIKey");
+            var WebAPIkey = await SecureStorage.Default.GetAsync("WebAPIKey");
             var code = await SecureStorage.Default.GetAsync("Code");
             var contentItems = new List<ContentItem>();
 
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/contentitems/{apikey}/{code}", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.WebAPIUrl}/contentitems/{WebAPIkey}/{code}", string.Empty));
             try
             {
                 var response = await client.GetAsync(uri);
@@ -79,11 +79,11 @@ namespace OTTCreator.Client.Services
 
         public async Task<List<ContentItem>> GetContentItemsAsync(string type, string category)
         {
-            var apikey = await SecureStorage.Default.GetAsync("APIKey");
+            var WebAPIkey = await SecureStorage.Default.GetAsync("WebAPIKey");
             var code = await SecureStorage.Default.GetAsync("Code");
             var contentItems = new List<ContentItem>();
 
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/{type}/{category}/contentitems/{apikey}/{code}", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.WebAPIUrl}/{type}/{category}/contentitems/{WebAPIkey}/{code}", string.Empty));
             try
             {
                 var response = await client.GetAsync(uri);
@@ -105,10 +105,10 @@ namespace OTTCreator.Client.Services
         {
             var contentItem = new ContentItem();
 
-            var apikey = await SecureStorage.Default.GetAsync("APIKey");
+            var WebAPIkey = await SecureStorage.Default.GetAsync("WebAPIKey");
             var code = await SecureStorage.Default.GetAsync("Code");
 
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/contentitems/{id}/{apikey}/{code}", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.WebAPIUrl}/contentitems/{id}/{WebAPIkey}/{code}", string.Empty));
             try
             {
                 var response = await client.GetAsync(uri);
@@ -128,12 +128,12 @@ namespace OTTCreator.Client.Services
 
         public async Task<List<string>> GetTypesAsync()
         {
-            var apikey = await SecureStorage.Default.GetAsync("APIKey");
+            var WebAPIkey = await SecureStorage.Default.GetAsync("WebAPIKey");
             var code = await SecureStorage.Default.GetAsync("Code");
 
             var contentItemsStrings = new List<string>();
 
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/types/{apikey}/{code}", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.WebAPIUrl}/types/{WebAPIkey}/{code}", string.Empty));
             try
             {
                 var response = await client.GetAsync(uri);
@@ -153,12 +153,12 @@ namespace OTTCreator.Client.Services
 
         public async Task<List<string>> GetCategoriesAsync(string type)
         {
-            var apikey = await SecureStorage.Default.GetAsync("APIKey");
+            var WebAPIkey = await SecureStorage.Default.GetAsync("WebAPIKey");
             var code = await SecureStorage.Default.GetAsync("Code");
 
             var contentItemsStrings = new List<string>();
 
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/{type}/categories/{apikey}/{code}", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.WebAPIUrl}/{type}/categories/{WebAPIkey}/{code}", string.Empty));
             try
             {
                 var response = await client.GetAsync(uri);
@@ -178,12 +178,12 @@ namespace OTTCreator.Client.Services
 
         public async Task<List<ContentItem>> GetFavoritesAsync(string type)
         {
-            var apikey = await SecureStorage.Default.GetAsync("APIKey");
+            var WebAPIkey = await SecureStorage.Default.GetAsync("WebAPIKey");
             var code = await SecureStorage.Default.GetAsync("Code");
 
             var contentItems = new List<ContentItem>();
 
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/{type}/contentitems/favorites/{apikey}/{code}", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.WebAPIUrl}/{type}/contentitems/favorites/{WebAPIkey}/{code}", string.Empty));
             try
             {
                 var response = await client.GetAsync(uri);
@@ -203,10 +203,10 @@ namespace OTTCreator.Client.Services
 
         public async Task SaveContentItemFavoriteAsync(int id)
         {
-            var apikey = await SecureStorage.Default.GetAsync("APIKey");
+            var WebAPIkey = await SecureStorage.Default.GetAsync("WebAPIKey");
             var code = await SecureStorage.Default.GetAsync("Code");
 
-            var uri = new Uri(string.Format($"{Constants.APIUrl}/contentitems/{id}/favorite/{apikey}/{code}", string.Empty));
+            var uri = new Uri(string.Format($"{Constants.WebAPIUrl}/contentitems/{id}/favorite/{WebAPIkey}/{code}", string.Empty));
 
             try
             {

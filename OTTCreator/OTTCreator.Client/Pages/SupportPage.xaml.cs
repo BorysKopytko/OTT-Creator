@@ -20,8 +20,8 @@ public partial class SupportPage : ContentPage
 
     private async void DeactivateButton_Clicked(object sender, EventArgs e)
     {
-        var apikey = await SecureStorage.Default.GetAsync("APIKey");
-        var result = await contentService.ActivateAsync(false, apikey, CodeLabel.Text);
+        var WebAPIkey = await SecureStorage.Default.GetAsync("WebAPIKey");
+        var result = await contentService.ActivateAsync(false, WebAPIkey, CodeLabel.Text);
         if (result)
         {
             SecureStorage.Default.Remove("Code");
