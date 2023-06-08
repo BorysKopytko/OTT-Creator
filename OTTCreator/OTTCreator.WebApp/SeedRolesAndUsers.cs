@@ -36,7 +36,7 @@ namespace OTTCreator.WebApp
             var user2 = new User
             {
                 UserName = "user1@example.com",
-                Email = "user1@lnu.edu.ua",
+                Email = "user1@example.com",
                 FavoriteContentItemsIDs = new List<int>(),
                 CodesAndUse = new Dictionary<Guid, bool>
                 {

@@ -22,4 +22,7 @@ public class UserViewModel
 
     [Display(Name = "Роль")]
     public string RoleId { get; set; }
+
+    [Display(Name = "Оплачено")]
+    public bool IsAllowed { get; set; }
 }

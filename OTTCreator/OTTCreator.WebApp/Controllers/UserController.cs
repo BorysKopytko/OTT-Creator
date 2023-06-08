@@ -32,11 +32,11 @@ namespace OTTCreator.WebApp.Controllers
             var users = await userManager.GetUsersInRoleAsync("Користувач");
             foreach (var administrator in administrators)
             {
-                model.Add(new UserListViewModel { Id = administrator.Id, Email = administrator.Email, Role = "Адміністратор" });
+                model.Add(new UserListViewModel { Id = administrator.Id, Email = administrator.Email, Role = "Адміністратор", IsAllowed = administrator.IsAllowed });
             }
             foreach (var user in users)
             {
-                model.Add(new UserListViewModel { Id = user.Id, Email = user.Email, Role = "Користувач" });
+                model.Add(new UserListViewModel { Id = user.Id, Email = user.Email, Role = "Користувач", IsAllowed = user.IsAllowed });
             }
 
             return View(model);
@@ -78,6 +78,7 @@ namespace OTTCreator.WebApp.Controllers
             var administrator = new User();
 
             administrator.Email = model.Email;
+            administrator.IsAllowed = true;
 
             await repositoryWrapper.UserRepository.AddAsync(administrator);
             await unitOfWork.Commit();
@@ -125,6 +126,7 @@ namespace OTTCreator.WebApp.Controllers
         {
             var _user = new User();
             _user.Email = model.Email;
+            _user.IsAllowed = true;
 
             await repositoryWrapper.UserRepository.AddAsync(_user);
             await unitOfWork.Commit();
@@ -175,6 +177,7 @@ namespace OTTCreator.WebApp.Controllers
                 if (user != null)
                 {
                     model.Email = user.Email;
+                    model.IsAllowed = user.IsAllowed;
                 }
             }
             return View(nameof(EditAdministrator), model);
@@ -195,6 +198,8 @@ namespace OTTCreator.WebApp.Controllers
             {
                 user.Email = model.Email;
                 user.UserName = model.Email;
+                user.IsAllowed = model.IsAllowed;
+
                 IdentityResult result = await userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
@@ -225,6 +230,7 @@ namespace OTTCreator.WebApp.Controllers
                 if (user != null)
                 {
                     model.Email = user.Email;
+                    model.IsAllowed = user.IsAllowed;
                 }
             }
             return View(nameof(EditUser), model);
@@ -245,6 +251,7 @@ namespace OTTCreator.WebApp.Controllers
             {
                 user.Email = model.Email;
                 user.UserName = model.Email;
+                user.IsAllowed = model.IsAllowed;
                 IdentityResult result = await userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {

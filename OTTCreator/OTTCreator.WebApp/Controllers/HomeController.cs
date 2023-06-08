@@ -17,7 +17,7 @@ namespace OTTCreator.WebApp.Controllers
 
         public IActionResult Index()
         {
-            return View("User/Configure");
+            return View();
         }
 
         public IActionResult Privacy()

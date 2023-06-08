@@ -11,4 +11,7 @@ public class UserListViewModel
 
     [Display(Name = "Роль")]
     public string Role { get; set; }
+
+    [Display(Name = "Оплачено")]
+    public bool IsAllowed { get; set; }
 }
