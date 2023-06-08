@@ -9,6 +9,8 @@ public class RepositoryWrapper : IRepositoryWrapper
 
     private IUserRepository _userRepository;
 
+    private IContentRepository _contentRepository;
+
     public IUserRepository UserRepository
     {
         get
@@ -18,6 +20,18 @@ public class RepositoryWrapper : IRepositoryWrapper
                 _userRepository = new UserRepository(_dbContext);
             }
             return _userRepository;
+        }
+    }
+
+    public IContentRepository ContentRepository
+    {
+        get
+        {
+            if (_contentRepository == null)
+            {
+                _contentRepository = new ContentRepository(_dbContext);
+            }
+            return _contentRepository;
         }
     }
 

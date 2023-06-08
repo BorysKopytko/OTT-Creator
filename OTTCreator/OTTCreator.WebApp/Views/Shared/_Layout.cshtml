@@ -35,7 +35,7 @@
                             @if (UserManager.GetRolesAsync(UserManager.Users.FirstOrDefault(user => user.Id == UserManager.GetUserId(User))).Result.Contains("Адміністратор") && UserManager.GetRolesAsync(UserManager.Users.FirstOrDefault(user => user.Id == UserManager.GetUserId(User))).Result.Contains("Користувач") != null)
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Configure">Вміст</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Content" asp-action="Configure">Вміст</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Configure">Користувачі</a>
