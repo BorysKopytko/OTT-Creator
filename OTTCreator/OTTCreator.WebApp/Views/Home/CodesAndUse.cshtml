@@ -1,0 +1,44 @@
+﻿@using OTTCreator.WebApp.ViewModels;
+
+@model IEnumerable<CodeAndUseViewModel>
+
+@{
+    ViewData["Title"] = "Коди та використання";
+}
+
+<div class="table-responsive">
+    <table class="table table-borderless table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Code)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsUsing)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var codeAndUse in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(u => codeAndUse.Code)
+                    </td>
+                    @if (codeAndUse.IsUsing)
+                    {
+                        <td>
+                            Так
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            Ні
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -41,27 +41,36 @@
                     @foreach (var contentItem in Model)
                     {
                         <tr>
-                            <th>
+                            <td>
                                 @Html.DisplayFor(c => contentItem.Name)
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 @Html.DisplayFor(c => contentItem.Category)
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 @Html.DisplayFor(c => contentItem.Type)
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 @Html.DisplayFor(c => contentItem.Image)
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 @Html.DisplayFor(c => contentItem.CroppedImage)
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 @Html.DisplayFor(c => contentItem.Stream)
-                            </th>
-                            <th>
-                                @Html.DisplayFor(c => contentItem.HasVideo)
-                            </th>
+                            </td>
+                            @if (contentItem.HasVideo)
+                            {
+                                <td>
+                                    Так
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    Ні
+                                </td>
+                            }
                             <td>
                                 <div class="btn-group-vertical w-100">
                                     <a class="btn btn-warning" asp-controller="Content" asp-action="Edit" asp-route-Id="@contentItem.Id"><i class="fa fa-edit"></i><br>Редагувати</a>

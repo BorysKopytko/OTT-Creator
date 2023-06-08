@@ -28,7 +28,7 @@ namespace OTTCreator.WebApp.Controllers
 
             foreach (var contentItem in contentItems)
             {
-                model.Add(new ContentListViewModel { Id = contentItem.ID.ToString(), Name=contentItem.Name, Name = contentItem.Name, Type = contentItem.Type, Image = contentItem.Image, CroppedImage = contentItem.CroppedImage, Stream = contentItem.Stream, HasVideo = contentItem.HasVideo  });
+                model.Add(new ContentListViewModel { Id = contentItem.ID.ToString(), Name=contentItem.Name, Category = contentItem.Category, Type = contentItem.Type, Image = contentItem.Image, CroppedImage = contentItem.CroppedImage, Stream = contentItem.Stream, HasVideo = contentItem.HasVideo  });
             }
 
             return View(model);

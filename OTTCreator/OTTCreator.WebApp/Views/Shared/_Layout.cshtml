@@ -29,7 +29,7 @@
                             @if (UserManager.GetRolesAsync(UserManager.Users.FirstOrDefault(user => user.Id == UserManager.GetUserId(User))).Result.Contains("Користувач") && UserManager.GetRolesAsync(UserManager.Users.FirstOrDefault(user => user.Id == UserManager.GetUserId(User))).Result.Contains("Користувач") != null)
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Коди та використання</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CodesAndUse">Коди та використання</a>
                                 </li>
                             }
                             @if (UserManager.GetRolesAsync(UserManager.Users.FirstOrDefault(user => user.Id == UserManager.GetUserId(User))).Result.Contains("Адміністратор") && UserManager.GetRolesAsync(UserManager.Users.FirstOrDefault(user => user.Id == UserManager.GetUserId(User))).Result.Contains("Користувач") != null)
