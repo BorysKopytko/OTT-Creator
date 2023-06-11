@@ -9,6 +9,9 @@ public class UserListViewModel
     [Display(Name = "Електронна пошта")]
     public string Email { get; set; }
 
+    [Display(Name = "Номер телефону")]
+    public string PhoneNumber { get; set; }
+
     [Display(Name = "Роль")]
     public string Role { get; set; }
 

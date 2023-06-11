@@ -10,6 +10,9 @@ public class UserViewModel
     [Display(Name = "Електронна пошта")]
     public string Email { get; set; }
 
+    [Display(Name = "Номер телефону")]
+    public string PhoneNumber { get; set; }
+
     [DataType(DataType.Password)]
     [Display(Name = "Пароль")]
     public string Password { get; set; }

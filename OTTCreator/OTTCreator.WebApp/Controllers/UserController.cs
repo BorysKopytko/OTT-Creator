@@ -32,11 +32,11 @@ namespace OTTCreator.WebApp.Controllers
             var users = await userManager.GetUsersInRoleAsync("Користувач");
             foreach (var administrator in administrators)
             {
-                model.Add(new UserListViewModel { Id = administrator.Id, Email = administrator.Email, Role = "Адміністратор", IsAllowed = administrator.IsAllowed });
+                model.Add(new UserListViewModel { Id = administrator.Id, Email = administrator.Email, PhoneNumber = administrator.PhoneNumber, Role = "Адміністратор", IsAllowed = administrator.IsAllowed });
             }
             foreach (var user in users)
             {
-                model.Add(new UserListViewModel { Id = user.Id, Email = user.Email, Role = "Користувач", IsAllowed = user.IsAllowed });
+                model.Add(new UserListViewModel { Id = user.Id, Email = user.Email, PhoneNumber = user.PhoneNumber, Role = "Користувач", IsAllowed = user.IsAllowed });
             }
 
             return View(model);
@@ -78,6 +78,7 @@ namespace OTTCreator.WebApp.Controllers
             User user = new User
             {
                 UserName = model.Email,
+                PhoneNumber = model.PhoneNumber,
                 Email = model.Email,
                 IsAllowed = true,
                 FavoriteContentItemsIDs = new List<int>(),
@@ -121,6 +122,7 @@ namespace OTTCreator.WebApp.Controllers
             {
                 UserName = model.Email,
                 Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
                 IsAllowed = true,
                 FavoriteContentItemsIDs = new List<int>(),
                 CodesAndUse = new Dictionary<Guid, bool>
@@ -157,6 +159,7 @@ namespace OTTCreator.WebApp.Controllers
             var administrator = await repositoryWrapper.UserRepository.GetByIdAsync((id));
 
             model.Email = administrator.Email;
+            model.PhoneNumber = administrator.PhoneNumber;
 
             if (!String.IsNullOrEmpty(id))
             {
@@ -182,6 +185,7 @@ namespace OTTCreator.WebApp.Controllers
             {
                 user.Email = model.Email;
                 user.UserName = model.Email;
+                user.PhoneNumber = model.PhoneNumber;
                 user.IsAllowed = model.IsAllowed;
 
                 IdentityResult result = await userManager.UpdateAsync(user);
@@ -206,6 +210,7 @@ namespace OTTCreator.WebApp.Controllers
             var _user = await repositoryWrapper.UserRepository.GetByIdAsync((id));
 
             model.Email = _user.Email;
+            model.PhoneNumber = _user.PhoneNumber;
 
 
             if (!String.IsNullOrEmpty(id))
@@ -214,6 +219,7 @@ namespace OTTCreator.WebApp.Controllers
                 if (user != null)
                 {
                     model.Email = user.Email;
+                    
                     model.IsAllowed = user.IsAllowed;
                 }
             }
@@ -232,6 +238,7 @@ namespace OTTCreator.WebApp.Controllers
             {
                 user.Email = model.Email;
                 user.UserName = model.Email;
+                user.PhoneNumber = model.PhoneNumber;
                 user.IsAllowed = model.IsAllowed;
                 IdentityResult result = await userManager.UpdateAsync(user);
                 if (result.Succeeded)
