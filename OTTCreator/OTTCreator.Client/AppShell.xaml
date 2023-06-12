@@ -6,15 +6,26 @@
        xmlns:pages="clr-namespace:OTTCreator.Client.Pages"
        Shell.FlyoutBehavior="Flyout"
        x:Name="Shell">
+    <Shell.FlyoutHeader>
+        <Image Aspect="AspectFill"
+               Source="logo.png"
+               Margin="35"/>
+    </Shell.FlyoutHeader>
     <ShellContent
         Title="Поточне відтворення"
         ContentTemplate="{DataTemplate pages:ContentItemPage}"
-        Route="ContentItemPage"/>
+        Route="ContentItemPage"
+        Icon="current_icon.png"/>
     <FlyoutItem
         x:Name="FavoriteContentFlyoutItem"
-        Title="Улюблений вміст"/>
+        Title="Улюблений вміст"
+        Icon="favorites_icon.png"/>
     <ShellContent
         Title="Підтримка"
         ContentTemplate="{DataTemplate pages:SupportPage}"
-        Route="SupportPage"/>
+        Route="SupportPage"
+        Icon="support_icon.png"/>
+    <Shell.FlyoutFooter>
+        <Label HorizontalTextAlignment="Center" Margin="20">© 2023 OTTCreator&#xA;Всіх прав дотримано.</Label>
+    </Shell.FlyoutFooter>
 </Shell>

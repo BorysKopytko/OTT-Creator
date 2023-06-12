@@ -4,14 +4,22 @@
              x:Class="OTTCreator.Client.Pages.SupportPage"
              Title="Підтримка">
     <VerticalStackLayout Padding="10">
-        <Label Text="Код:" 
+        <Label Text="Телефон:     +38 (032) 012-34-56" 
                Padding="10"/>
-        <Label x:Name="CodeLabel"
+        <Label Text="Електронна пошта:     support@ottcreator.com" 
                Padding="10"/>
+        <Label Text="Веб-сайт:     https://www.ottcreator.com" 
+               Padding="10"/>
+        <HorizontalStackLayout>
+            <Label Text="Код:" 
+               Padding="10"/>
+            <Label x:Name="CodeLabel"
+               Padding="10"/>
+        </HorizontalStackLayout>
         <Button x:Name="DeactivateButton"
                 Text="Деактивувати"
                 Clicked="DeactivateButton_Clicked"
+                Margin="10"
                 Padding="10"/>
     </VerticalStackLayout>
 </ContentPage>
-    

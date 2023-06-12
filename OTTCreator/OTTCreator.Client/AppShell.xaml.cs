@@ -11,7 +11,7 @@ public partial class AppShell : Shell
     {
         InitializeComponent();
 
-        contentService = new ContentService();    
+        contentService = new ContentService();
         var task = Task.Run(GenerateUI);
         task.Wait();
 
@@ -30,6 +30,10 @@ public partial class AppShell : Shell
         foreach (var type in types)
         {
             var UIType = new FlyoutItem() { Title = type };
+            if (type == "Телеканали")
+                UIType.Icon = "tv_icon.png";
+            else if (type == "Радіостанції")
+                UIType.Icon = "radio_icon.png";
             var categories = await contentService.GetCategoriesAsync(type);
             foreach (var category in categories)
                 UIType.Items.Add(new ShellContent() { Title = category, ContentTemplate = categoryPageDataTemplate });

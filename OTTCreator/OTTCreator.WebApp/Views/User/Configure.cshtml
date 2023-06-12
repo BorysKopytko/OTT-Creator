@@ -55,7 +55,7 @@
                             }
                             <td>
                                 <div class="btn-group-vertical w-100">
-                                    @if (user.Role == "Користувач")
+                                    @if (user.Role == "Клієнт")
                                     {
                                         <a class="btn btn-warning" asp-controller="User" asp-action="EditUser" asp-route-Id="@user.Id"><i class="fa fa-edit"></i><br>Редагувати</a>
                                         <a class="btn btn-danger" asp-controller="User" asp-action="DeleteUser" asp-route-Id="@user.Id"><i class="fa fa-trash"></i><br>Видалити</a>

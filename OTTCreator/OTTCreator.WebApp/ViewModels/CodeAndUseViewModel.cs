@@ -1,14 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace OTTCreator.WebApp.ViewModels
+namespace OTTCreator.WebApp.ViewModels;
+
+public class CodeAndUseViewModel
 {
-    public class CodeAndUseViewModel
-    {
-        [Display(Name = "Код")]
-        public string Code { get; set; }
+    [Display(Name = "Код")]
+    public string Code { get; set; }
 
-        [Display(Name = "Використовується")]
-        public bool IsUsing { get; set; }
-    }
+    [Display(Name = "Використовується")]
+    public bool IsUsing { get; set; }
 }

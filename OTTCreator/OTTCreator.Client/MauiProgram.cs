@@ -21,7 +21,6 @@ namespace OTTCreator.Client
             builder.Services.AddSingleton<ContentItemPage>();
             builder.Services.AddSingleton<CategoryPage>();
             builder.Services.AddSingleton<SupportPage>();
-
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

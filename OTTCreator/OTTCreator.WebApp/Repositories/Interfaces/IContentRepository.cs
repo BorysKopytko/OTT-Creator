@@ -1,5 +1,4 @@
-﻿using OTTCreator.WebApp.Areas.Identity.Data;
-using OTTCreator.WebApp.Models;
+﻿using OTTCreator.WebApp.Models;
 
 namespace OTTCreator.WebApp.Repositories.Interfaces;
 

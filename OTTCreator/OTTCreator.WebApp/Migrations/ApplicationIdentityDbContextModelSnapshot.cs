@@ -247,89 +247,188 @@ namespace OTTCreator.WebApp.Migrations
                         new
                         {
                             ID = 1,
-                            Category = "Test category A",
-                            CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            Category = "Новинні",
+                            CroppedImage = "https://s9.vcdn.biz/static/f/5354553681/image.jpg/pt/r300x423x4",
                             HasVideo = true,
-                            Image = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
-                            Name = "Test content 1",
+                            Image = "https://s9.vcdn.biz/static/f/5354553681/image.jpg/pt/r300x423x4",
+                            Name = "Суспільне Новини",
                             Stream = "https://bloomberg.com/media-manifest/streams/eu.m3u8",
                             Type = "Телеканали"
                         },
                         new
                         {
                             ID = 2,
-                            Category = "Test category A",
-                            CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            Category = "Новинні",
+                            CroppedImage = "https://s1.vcdn.biz/static/f/5898897271/image.jpg/pt/r300x423x4",
                             HasVideo = true,
-                            Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
-                            Name = "Test content 2",
-                            Stream = "https://i.mjh.nz/PlutoTV/5a6b92f6e22a617379789618-alt.m3u8",
+                            Image = "https://s1.vcdn.biz/static/f/5898897271/image.jpg/pt/r300x423x4",
+                            Name = "АРМІЯ ТБ",
+                            Stream = "https://euronews-euronews-world-1-au.samsung.wurl.com/manifest/playlist.m3u8",
                             Type = "Телеканали"
                         },
                         new
                         {
                             ID = 3,
-                            Category = "Test category B",
-                            CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            Category = "Пізнавальні",
+                            CroppedImage = "https://s6.vcdn.biz/static/f/4632098541/image.jpg/pt/r300x423x4",
                             HasVideo = true,
-                            Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
-                            Name = "Test content 3",
+                            Image = "https://s6.vcdn.biz/static/f/4632098541/image.jpg/pt/r300x423x4",
+                            Name = "Суспільне Культура",
                             Stream = "https://ythls.onrender.com/channel/UCH9H_b9oJtSHBovh94yB5HA.m3u8",
                             Type = "Телеканали"
                         },
                         new
                         {
                             ID = 4,
-                            Category = "Test category B",
-                            CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            Category = "Новинні",
+                            CroppedImage = "https://s9.vcdn.biz/static/f/4632113151/image.jpg/pt/r300x423x4",
                             HasVideo = true,
-                            Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
-                            Name = "Test content 4",
+                            Image = "https://s9.vcdn.biz/static/f/4632113151/image.jpg/pt/r300x423x4",
+                            Name = "Перший",
                             Stream = "https://ythls.onrender.com/channel/UCMEiyV8N2J93GdPNltPYM6w.m3u8",
                             Type = "Телеканали"
                         },
                         new
                         {
                             ID = 5,
-                            Category = "Test category C",
-                            CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            Category = "Новинні",
+                            CroppedImage = "https://s8.vcdn.biz/static/f/6004218941/image.jpg/pt/r300x423x4",
+                            HasVideo = true,
+                            Image = "https://s8.vcdn.biz/static/f/6004218941/image.jpg/pt/r300x423x4",
+                            Name = "Київ",
+                            Stream = "https://fashiontv-fashiontv-1-eu.rakuten.wurl.tv/playlist.m3u8",
+                            Type = "Телеканали"
+                        },
+                        new
+                        {
+                            ID = 6,
+                            Category = "Новинні",
+                            CroppedImage = "https://s1.vcdn.biz/static/f/333958501/image.jpg/pt/r300x423x4",
+                            HasVideo = true,
+                            Image = "https://s1.vcdn.biz/static/f/333958501/image.jpg/pt/r300x423x4",
+                            Name = "5 канал",
+                            Stream = "https://ythls.onrender.com/channel/UCQfwfsi5VrQ8yKZ-UWmAEFg.m3u8",
+                            Type = "Телеканали"
+                        },
+                        new
+                        {
+                            ID = 7,
+                            Category = "Новинні",
+                            CroppedImage = "https://s2.vcdn.biz/static/f/4961863001/image.jpg/pt/r300x423x4",
+                            HasVideo = true,
+                            Image = "https://s2.vcdn.biz/static/f/4961863001/image.jpg/pt/r300x423x4",
+                            Name = "Еспресо TV",
+                            Stream = "https://live-tf1-hls-dai.cdn-1.diff.tf1.fr/out/v1/c2e382be3aa2486e8753747e7bb6157e/index.m3u8",
+                            Type = "Телеканали"
+                        },
+                        new
+                        {
+                            ID = 8,
+                            Category = "Новинні",
+                            CroppedImage = "https://s1.vcdn.biz/static/f/672118741/image.jpg/pt/r300x423x4",
+                            HasVideo = true,
+                            Image = "https://s1.vcdn.biz/static/f/672118741/image.jpg/pt/r300x423x4",
+                            Name = "BBC World News",
+                            Stream = "https://cnn-cnninternational-1-eu.rakuten.wurl.tv/playlist.m3u8",
+                            Type = "Телеканали"
+                        },
+                        new
+                        {
+                            ID = 9,
+                            Category = "Новинні",
+                            CroppedImage = "https://s9.vcdn.biz/static/f/5016844881/image.jpg/pt/r300x423x4",
+                            HasVideo = true,
+                            Image = "https://s9.vcdn.biz/static/f/5016844881/image.jpg/pt/r300x423x4",
+                            Name = "TVP World",
+                            Stream = "https://cnn-cnninternational-1-eu.rakuten.wurl.tv/playlist.m3u8",
+                            Type = "Телеканали"
+                        },
+                        new
+                        {
+                            ID = 10,
+                            Category = "Пізнавальні",
+                            CroppedImage = "https://s9.vcdn.biz/static/f/5354553681/image.jpg/pt/r300x423x4",
+                            HasVideo = true,
+                            Image = "https://s9.vcdn.biz/static/f/5354553681/image.jpg/pt/r300x423x4",
+                            Name = "Суспільне Новини",
+                            Stream = "https://bloomberg.com/media-manifest/streams/eu.m3u8",
+                            Type = "Телеканали"
+                        },
+                        new
+                        {
+                            ID = 11,
+                            Category = "Міжнародні",
+                            CroppedImage = "https://s9.vcdn.biz/static/f/5016844881/image.jpg/pt/r300x423x4",
+                            HasVideo = true,
+                            Image = "https://s9.vcdn.biz/static/f/5016844881/image.jpg/pt/r300x423x4",
+                            Name = "TVP World",
+                            Stream = "https://cnn-cnninternational-1-eu.rakuten.wurl.tv/playlist.m3u8",
+                            Type = "Телеканали"
+                        },
+                        new
+                        {
+                            ID = 12,
+                            Category = "Національні",
+                            CroppedImage = "https://play.tavr.media/static/image/header_menu/hit_efir_210x210.png",
                             HasVideo = false,
-                            Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
-                            Name = "Test content 5",
+                            Image = "https://play.tavr.media/static/image/header_menu/hit_efir_210x210.png",
+                            Name = "Хіт FM",
                             Stream = "https://online.hitfm.ua/HitFM_HD",
                             Type = "Радіостанції"
                         },
                         new
                         {
-                            ID = 6,
-                            Category = "Test category C",
-                            CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            ID = 13,
+                            Category = "Національні",
+                            CroppedImage = "https://play.tavr.media/static/image/header_menu/roks_efir_162x162.png",
                             HasVideo = false,
-                            Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
-                            Name = "Test content 6",
+                            Image = "https://play.tavr.media/static/image/header_menu/roks_efir_162x162.png",
+                            Name = "Radio Roks",
                             Stream = "https://online.radioroks.ua/RadioROKS_HD",
                             Type = "Радіостанції"
                         },
                         new
                         {
-                            ID = 7,
-                            Category = "Test category D",
-                            CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            ID = 14,
+                            Category = "Національні",
+                            CroppedImage = "https://play.tavr.media/static/image/header_menu/kiss_efir_210x210.png",
                             HasVideo = false,
-                            Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
-                            Name = "Test content 7",
+                            Image = "https://play.tavr.media/static/image/header_menu/kiss_efir_210x210.png",
+                            Name = "Kiss FM",
+                            Stream = "https://online.kissfm.ua/KissFM_HD",
+                            Type = "Радіостанції"
+                        },
+                        new
+                        {
+                            ID = 15,
+                            Category = "Національні",
+                            CroppedImage = "https://play.tavr.media/static/image/header_menu/Relax_Efir_228x228.png",
+                            HasVideo = false,
+                            Image = "https://play.tavr.media/static/image/header_menu/Relax_Efir_228x228.png",
+                            Name = "Relax",
+                            Stream = "https://online.radiorelax.ua/RadioRelax_HD",
+                            Type = "Радіостанції"
+                        },
+                        new
+                        {
+                            ID = 16,
+                            Category = "Місцеві",
+                            CroppedImage = "https://play.tavr.media/static/image/header_menu/hit_efir_210x210.png",
+                            HasVideo = false,
+                            Image = "https://play.tavr.media/static/image/header_menu/hit_efir_210x210.png",
+                            Name = "Хіт FM",
                             Stream = "https://online.hitfm.ua/HitFM_HD",
                             Type = "Радіостанції"
                         },
                         new
                         {
-                            ID = 8,
-                            Category = "Test category D",
-                            CroppedImage = "https://www.photos-public-domain.com/wp-content/uploads/2016/08/tortie-cat-300x300.jpg",
+                            ID = 17,
+                            Category = "Розмовні",
+                            CroppedImage = "https://play.tavr.media/static/image/header_menu/Relax_Efir_228x228.png",
                             HasVideo = true,
-                            Image = "https://cdn.pixabay.com/photo/2023/04/11/22/08/flower-7918323_960_720.jpg",
-                            Name = "Test content 8",
-                            Stream = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                            Image = "https://play.tavr.media/static/image/header_menu/Relax_Efir_228x228.png",
+                            Name = "Relax",
+                            Stream = "https://online.radiorelax.ua/RadioRelax_HD",
                             Type = "Радіостанції"
                         });
                 });

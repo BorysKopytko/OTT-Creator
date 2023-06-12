@@ -5,7 +5,6 @@ var WebAPIKey = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationIdentityDbContext>();
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 var app = builder.Build();
 
@@ -57,7 +56,7 @@ app.MapGet("types/{WebAPIkey}/{code}", async (string WebAPIkey, string code, App
         if (user != null && user.IsAllowed)
         {
             return Enumerable.Reverse(await db.ContentItems.Select(c => c.Type).Distinct().AsQueryable().ToListAsync());
-        }       
+        }
     }
     return null;
 });
@@ -75,7 +74,7 @@ app.MapGet("{type}/categories/{WebAPIkey}/{code}", async (string type, string We
 
 app.MapGet("{type}/{category}/contentitems/{WebAPIkey}/{code}", async (string type, string category, string WebAPIkey, string code, ApplicationIdentityDbContext db) =>
 {
-    if (WebAPIkey == WebAPIKey )
+    if (WebAPIkey == WebAPIKey)
     {
         var user = await GetUserAsync(db, code);
         if (user != null && user.IsAllowed)

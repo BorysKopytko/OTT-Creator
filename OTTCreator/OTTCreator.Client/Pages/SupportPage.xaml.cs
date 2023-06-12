@@ -23,8 +23,6 @@ public partial class SupportPage : ContentPage
         var WebAPIkey = await SecureStorage.Default.GetAsync("WebAPIKey");
         var result = await contentService.ActivateAsync(false, WebAPIkey, CodeLabel.Text);
         if (result)
-        {
             SecureStorage.Default.Remove("Code");
-        }
     }
 }

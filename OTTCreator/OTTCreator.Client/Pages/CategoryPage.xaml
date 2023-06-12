@@ -5,8 +5,7 @@
              xmlns:controls="clr-namespace:OTTCreator.Client.Controls">
     <Shell.SearchHandler>
         <controls:ContentItemSearchHandler Placeholder="Введіть назву"
-                                           ShowsResults="true"
-                                           QueryIcon="False">
+                                           ShowsResults="true">
             <controls:ContentItemSearchHandler.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="10"

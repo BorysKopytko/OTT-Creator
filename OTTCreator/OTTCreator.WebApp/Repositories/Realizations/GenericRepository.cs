@@ -53,13 +53,9 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         var query = _dbContext.Set<T>().AsNoTracking();
         if (include != null)
-        {
             query = include(query);
-        }
         if (predicate != null)
-        {
             query = query.Where(predicate);
-        }
         return query;
     }
 
@@ -71,24 +67,16 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         var query = _dbContext.Set<T>().AsNoTracking();
 
         if (include != null)
-        {
             query = include(query);
-        }
 
         if (filter != null)
-        {
             query = query.Where(filter);
-        }
 
         if (selector != null)
-        {
             query = query.Select(selector);
-        }
 
         if (sorting != null)
-        {
             query = sorting(query);
-        }
 
         return query;
     }
