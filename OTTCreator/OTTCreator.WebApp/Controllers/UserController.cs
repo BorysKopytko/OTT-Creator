@@ -32,16 +32,22 @@ public class UserController : Controller
         var administrators = await userManager.GetUsersInRoleAsync("Адміністратор");
         var users = await userManager.GetUsersInRoleAsync("Клієнт");
         foreach (var administrator in administrators)
-            model.Add(new UserListViewModel { Id = administrator.Id, Email = administrator.Email, PhoneNumber = administrator.PhoneNumber, Role = "Адміністратор", IsAllowed = administrator.IsAllowed });
+            model.Add(new UserListViewModel { Id = administrator.Id, 
+                Email = administrator.Email, PhoneNumber = administrator.PhoneNumber, 
+                Role = "Адміністратор", IsAllowed = administrator.IsAllowed });
         foreach (var user in users)
-            model.Add(new UserListViewModel { Id = user.Id, Email = user.Email, PhoneNumber = user.PhoneNumber, Role = "Клієнт", IsAllowed = user.IsAllowed });
+            model.Add(new UserListViewModel { Id = user.Id, Email = user.Email, 
+                PhoneNumber = user.PhoneNumber, Role = "Клієнт", IsAllowed = user.IsAllowed });
 
         return View(model);
     }
 
     public IActionResult CreateChoose()
     {
-        return View(new ChooseRoleViewModel() { Roles = roleManager.Roles.Select(r => new SelectListItem { Value = r.Name, Text = r.Name }).ToList() });
+        return View(new ChooseRoleViewModel() { Roles = roleManager.Roles
+                                                .Select(r => new SelectListItem 
+                                                 { Value = r.Name, 
+                                                    Text = r.Name }).ToList() });
     }
 
     [HttpPost]

@@ -100,7 +100,7 @@
                        Padding="10"
                        TextColor="White"/>
                 <Label x:Name="CodeInstructionLink"
-                       Text="https://localhost:7002/"
+                       Text="https://localhost:7115/"
                        Padding="10"
                        TextColor="White"/>
                 <Label x:Name="CodeInstructionPart3Label"
