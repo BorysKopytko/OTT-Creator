@@ -6,13 +6,18 @@
         .appendTo('#Datatable thead');
 
     var table = $('#Datatable').DataTable({
+        responsive: true,
         language: {
             url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/uk.json'
         },
         "order": [],
         orderCellsTop: true,
-        
+        scrollX: true,
+        scrollY: true,
+
         fixedHeader: true,
+        "autoWidth": true,
+        
         initComplete: function () {
             var api = this.api();
 
@@ -30,11 +35,10 @@
                     if ($(cell).hasClass('dontNeedFilter')) {
                         $(cell).html('<div class="btn-group-vertical w-100"><a class="btn btn-success" href="Create"><i class="fa fa-plus-square"></i><br>Створити</a></div>');
                     }
-                    else
-                    {
+                    else {
                         $(cell).html('<input type="text" class="form-control" placeholder="' + '" />');
                     }
-                    
+
 
                     // On every keypress in this input
                     $(
@@ -68,9 +72,8 @@
                         });
                 });
         },
-        columnDefs: [
-            { orderable: false, targets: -1 }
-        ],
+        
 
     });
+    table.columns.adjust().draw();
 });

@@ -4,12 +4,9 @@
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace OTTCreator.WebApp.Areas.Identity.Pages.Account
+namespace OTTCreator.WebApp.Areas.Identity.Pages.Account;
+
+public class AccessDeniedModel : PageModel
 {
-    public class AccessDeniedModel : PageModel
-    {
-        public void OnGet()
-        {
-        }
-    }
+    public void OnGet() { }
 }

@@ -19,13 +19,13 @@ public partial class CategoryPage : ContentPage
     {
         base.OnAppearing();
 
-        if ((previousType == null && previousCategory == null) || (previousType != Shell.Current.CurrentItem.Title) || 
+        if ((previousType == null && previousCategory == null) || (previousType != Shell.Current.CurrentItem.Title) ||
             (previousCategory != Shell.Current.CurrentItem.CurrentItem.Title))
         {
             await GenerateContentItemList();
-
-            Title = Shell.Current.CurrentItem.Title;
         }
+
+        Title = Shell.Current.CurrentItem.Title;
     }
 
     private async Task GenerateContentItemList()

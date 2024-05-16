@@ -16,9 +16,7 @@ public class RepositoryWrapper : IRepositoryWrapper
         get
         {
             if (_userRepository == null)
-            {
                 _userRepository = new UserRepository(_dbContext);
-            }
             return _userRepository;
         }
     }
@@ -28,9 +26,7 @@ public class RepositoryWrapper : IRepositoryWrapper
         get
         {
             if (_contentRepository == null)
-            {
                 _contentRepository = new ContentRepository(_dbContext);
-            }
             return _contentRepository;
         }
     }
