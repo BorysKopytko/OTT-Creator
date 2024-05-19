@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33712.159
@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OTTCreator.Client", "OTTCre
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OTTCreator.WebAPI", "OTTCreator.API\OTTCreator.WebAPI.csproj", "{65748CC4-5EF6-403F-A9A3-0DEB2D931B54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTTCreator.WebApp", "OTTCreator.WebApp\OTTCreator.WebApp.csproj", "{63C49AAE-E984-458C-84EB-7EE981693F1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OTTCreator.WebApp", "OTTCreator.WebApp\OTTCreator.WebApp.csproj", "{63C49AAE-E984-458C-84EB-7EE981693F1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
